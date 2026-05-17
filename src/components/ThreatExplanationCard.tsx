@@ -92,7 +92,7 @@ export function ThreatExplanationCard({ result, C }: ThreatExplanationCardProps)
                     }}
                   >
                     <View style={{
-                      width: 3, height: 3, borderRadius: 12,
+                      width: 3, height: 3, borderRadius: 16,
                       backgroundColor: C.accent, marginTop: 5,
                     }} />
                     <Text style={{ flex: 1, fontSize: 11, color: C.textSecondary, lineHeight: 17 }}>
