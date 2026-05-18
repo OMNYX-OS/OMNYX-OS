@@ -123,7 +123,7 @@ function ThreatCard({
     <Animated.View
       entering={FadeInDown.delay(index * 60).springify()}
       style={{
-        borderRadius: 18,
+        borderRadius: 16,
         overflow: 'hidden',
         borderWidth: 1,
         borderColor: event.resolved ? C.borderDim : `${riskColor}28`,
