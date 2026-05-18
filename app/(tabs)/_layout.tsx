@@ -94,7 +94,7 @@ function SignalDock({ state, navigation }: { state: any; navigation: any }) {
             left: 0,
             width: ITEM_W,
             height: 54,
-            borderRadius: 17,
+            borderRadius: 12,
             backgroundColor: `${C.primary}18`,
             borderWidth: 1,
             borderColor: `${C.primary}30`,

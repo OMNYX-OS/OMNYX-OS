@@ -258,7 +258,7 @@ function AgentCard({ agent, index, themeId }: { agent: AIAgent; index: number; t
     <Animated.View
       entering={FadeInDown.delay(index * 90).springify()}
       style={{
-        marginHorizontal: 20, marginBottom: 12, borderRadius: 18,
+        marginHorizontal: 20, marginBottom: 12, borderRadius: 16,
         borderWidth: 1, borderColor: `${agent.color}22`,
         overflow: 'hidden', backgroundColor: C.surface1,
       }}
