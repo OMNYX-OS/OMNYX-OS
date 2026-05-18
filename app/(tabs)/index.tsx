@@ -1112,7 +1112,7 @@ function LuminaLayout({ score, onThemePick }: { score: number; onThemePick: () =
           style={{
             flexDirection: 'row', alignItems: 'center', gap: 6,
             paddingHorizontal: 12, paddingVertical: 7, borderRadius: 20,
-            backgroundColor: `${C.primary}10`, borderWidth: 1, borderColor: `${C.primary}28`,
+           backgroundColor: C.primary + '10', borderWidth: 1, borderColor: C.primary + '28',
           }}
           >
           <View style={{ width: 5, height: 5, borderRadius: 2.5, backgroundColor: C.primary }} />
