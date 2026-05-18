@@ -24,7 +24,7 @@ import {
   Shield,
   ShieldCheck,
 } from 'lucide-react-native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { THEMES } from '@/theme';
 import { useAppStore } from '@store/useAppStore';
@@ -377,17 +377,29 @@ export default function ThreatFeedScreen() {
     { id: 'high', label: 'High', color: '#FF7A00' },
     { id: 'medium', label: 'Medium', color: C.accent },
   ];
-const handleCopyThreat = async (threat: any) => {
-  const text = `[${threat.riskLevel.toUpperCase()}] ${threat.title} — ${threat.description}`;
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const handleCopyThreat = async (threat: ThreatEvent) => {
+    const text = `[${threat.riskLevel.toUpperCase()}] ${threat.title} — ${threat.description}`;
 
-  await ExpoClipboard.setStringAsync(text);
+    await ExpoClipboard.setStringAsync(text);
 
-  setCopiedId(threat.id);
+    if (copyTimerRef.current) {
+      clearTimeout(copyTimerRef.current);
+    }
 
-  setTimeout(() => {
-    setCopiedId(null);
-  }, 1500);
-};
+    setCopiedId(threat.id);
+
+    copyTimerRef.current = setTimeout(() => {
+      setCopiedId(null);
+    }, 1500);
+  };
+  useEffect(() => {
+    return () => {
+      if (copyTimerRef.current) {
+        clearTimeout(copyTimerRef.current);
+      }
+    };
+  }, []);
   return (
     <View style={{ flex: 1, backgroundColor: C.bg }}>
       <LinearGradient
@@ -485,32 +497,32 @@ const handleCopyThreat = async (threat: any) => {
               return (
                 <ThreatPulseWrapper isCritical={isCritical} riskColor={C.threat}>
                   <View style={{ position: 'relative' }}>
-  <ThreatCard event={item} index={index} themeId={currentTheme} />
+                    <ThreatCard event={item} index={index} themeId={currentTheme} />
 
-  <TouchableOpacity
-    onPress={() => handleCopyThreat(item)}
-    activeOpacity={0.7}
-    style={{
-      position: 'absolute',
-      top: 12,
-      right: 12,
-      width: 34,
-      height: 34,
-      borderRadius: 17,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: C.glass1,
-      borderWidth: 1,
-      borderColor: C.borderDim,
-    }}
-  >
-    {copiedId === item.id ? (
-      <Check size={16} color={C.threat} />
-    ) : (
-      <Copy size={16} color={C.textDim} />
-    )}
-  </TouchableOpacity>
-</View>
+                    <TouchableOpacity
+                      onPress={() => handleCopyThreat(item)}
+                      activeOpacity={0.7}
+                      style={{
+                        position: 'absolute',
+                        top: 12,
+                        right: 12,
+                        width: 34,
+                        height: 34,
+                        borderRadius: 17,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: C.glass1,
+                        borderWidth: 1,
+                        borderColor: C.borderDim,
+                      }}
+                    >
+                      {copiedId === item.id ? (
+                        <Check size={16} color={C.threat} />
+                      ) : (
+                        <Copy size={16} color={C.textDim} />
+                      )}
+                    </TouchableOpacity>
+                  </View>
                 </ThreatPulseWrapper>
               );
             }}
