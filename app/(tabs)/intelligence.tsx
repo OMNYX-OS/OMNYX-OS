@@ -196,7 +196,7 @@ function ScanPanel({ themeId }: { themeId: string }) {
       <View
         style={{
           marginHorizontal: 20, marginBottom: 12,
-          borderRadius: 18, borderWidth: 1, borderColor: `${C.primary}35`,
+          borderRadius: 16, borderWidth: 1, borderColor: `${C.primary}35`,
           backgroundColor: C.surface1, padding: 20,
         }}
       >
@@ -223,7 +223,7 @@ function ScanPanel({ themeId }: { themeId: string }) {
         entering={FadeIn.duration(300)}
         style={{
           marginHorizontal: 20, marginBottom: 12,
-          borderRadius: 18, borderWidth: 1, borderColor: C.borderDim,
+          borderRadius: 16, borderWidth: 1, borderColor: C.borderDim,
           backgroundColor: C.surface1, overflow: 'hidden',
         }}
       >
@@ -269,7 +269,7 @@ function ScanPanel({ themeId }: { themeId: string }) {
       entering={FadeInDown.delay(80).springify()}
       style={{
         marginHorizontal: 20, marginBottom: 12,
-        borderRadius: 18, borderWidth: 1,
+        borderRadius: 16, borderWidth: 1,
         borderColor: `${C.primary}30`,
         backgroundColor: C.surface1, overflow: 'hidden',
       }}
