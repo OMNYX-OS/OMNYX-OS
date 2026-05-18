@@ -17,7 +17,7 @@ export function ThreatExplanationCard({ result, C }: ThreatExplanationCardProps)
 
   return (
     <View style={{
-      borderRadius: 14, overflow: 'hidden',
+      borderRadius: 16, overflow: 'hidden',
       borderWidth: 1, borderColor: `${C.primary}22`,
       backgroundColor: `${C.primary}07`,
     }}>
