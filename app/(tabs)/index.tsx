@@ -506,16 +506,14 @@ function ScoreRing({ score, themeId }: { score: number; themeId: ThemeId }) {
   const glowId = `glow_${themeId}`;
   const ringId = `ring_${themeId}`;
 
-  const currentScore = useAppStore((s) => s.privacyScore.current);
+
 
   const onShareScore = async () => {
     try {
       await Share.share({
-        message: `My OMNYX Privacy Score is ${currentScore}/100. AI-powered device privacy analysis. github.com/OMNYX-OS/OMNYX-OS`,
+        message: `My OMNYX Privacy Score is ${score}/100. AI-powered device privacy analysis. github.com/OMNYX-OS/OMNYX-OS`,
       });
-    } catch (e) {
-      console.log('Share failed:', e);
-    }
+   } catch {}
   };
   useEffect(() => {
     const pd = PULSE_DURATIONS[atmosphereLevel];
