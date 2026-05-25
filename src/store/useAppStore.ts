@@ -104,6 +104,7 @@ export const useAppStore = create<AppState>()(subscribeWithSelector((set, get) =
       ...event,
       resolved: true,
     })),
+    unreadThreatCount: 0,
   })),
   unreadThreatCount: 0,
   clearUnreadThreats: () => set({ unreadThreatCount: 0 }),
