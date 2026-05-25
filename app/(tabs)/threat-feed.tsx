@@ -487,7 +487,7 @@ export default function ThreatFeedScreen() {
         </View>
 
         {!filtered.every(event => event.resolved) && <TouchableOpacity
-          onPress={() => resolveAllThreats(filtered.map((event) => event.id))}
+          onPress={resolveAllThreats}
           activeOpacity={0.7}
           disabled={filtered.every((event) => event.resolved === true)}
           style={{
