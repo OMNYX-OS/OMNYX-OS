@@ -4,7 +4,7 @@
 
 **AI Privacy Intelligence Operating System**
 
-*A futuristic, open-source mobile privacy system powered by autonomous AI agents.*
+_A futuristic, open-source mobile privacy system powered by autonomous AI agents._
 
 [![Expo SDK](https://img.shields.io/badge/Expo-SDK%2054-000020?style=flat-square&logo=expo)](https://expo.dev)
 [![React Native](https://img.shields.io/badge/React%20Native-0.81-61DAFB?style=flat-square&logo=react)](https://reactnative.dev)
@@ -15,7 +15,7 @@
 
 ---
 
-![OMNYX Banner](screenshots/banner.png)
+<img src="screenshots/nebula-home.png" alt="OMNYX — Nebula theme home screen" width="260" />
 
 </div>
 
@@ -25,11 +25,11 @@
 
 Building AI tools, mobile experiences, and open-source products.
 
-| | |
-|---|---|
-| **Beginner Friendly** | Scoped issues with step-by-step instructions |
-| **Fast PR Reviews** | Feedback within 48-72 hours |
-| **Open to Contributors** | No gatekeeping — fork and build |
+|                             |                                                   |
+| --------------------------- | ------------------------------------------------- |
+| **Beginner Friendly**       | Scoped issues with step-by-step instructions      |
+| **Fast PR Reviews**         | Feedback within 48-72 hours                       |
+| **Open to Contributors**    | No gatekeeping — fork and build                   |
 | **Real Project Experience** | AI, mobile, privacy — production-quality codebase |
 
 **Start here** — [Good First Issues](https://github.com/OMNYX-OS/OMNYX-OS/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
@@ -57,24 +57,28 @@ The goal is to build an interface that feels **10 years ahead** of conventional 
 ## Key Features
 
 ### Privacy Intelligence Engine
+
 - Real-time threat detection and classification
 - Behavioral anomaly scoring
 - Ambient atmosphere system that reacts to threat level
 - Autonomous privacy score with trend tracking
 
 ### AI Swarm System
+
 - 5 specialized AI agents (SENTINEL, SCOUT, ANALYST, GUARDIAN, WATCHER)
 - Distributed analysis with coordinated reasoning
 - Agent status visualization with live pulse animations
 - Swarm constellation UI in pentagon formation
 
 ### AI Explanation Engine
+
 - Secure backend proxy architecture (API keys never touch the client)
 - Per-threat intelligence reports with operational tone
 - Swarm reasoning fragments before synthesis
 - Rate-limited, prompt-sanitized, response-validated pipeline
 
 ### Cinematic UI Themes
+
 - **NEBULA** - Cosmic intelligence, violet orbital systems, deep space atmosphere
 - **TERMINAL** - Tactical surveillance command center, radar grid, monochrome green
 - **SOLARIS** - Golden holograms, solar flare atmosphere, warm command energy
@@ -82,15 +86,18 @@ The goal is to build an interface that feels **10 years ahead** of conventional 
 - **LUMINA** - Ultra-minimal luxury, warm parchment, dark gold elegance
 
 ### Privacy Modes
+
 - Ghost, Banking, Normal, Travel, Focus, Sleep
 - Each mode adjusts monitoring intensity and AI behavior
 
 ### Memory Stream (Replay)
+
 - Full event timeline with SVG waveform trace
 - Animated signal archive with risk delta tracking
 - Agent response logs per event
 
 ### Threat Feed
+
 - Live threat feed with real-time breathing borders on critical events
 - Tension meter synchronized to atmosphere level
 - Resolve workflow with AI explanation per threat
@@ -99,15 +106,45 @@ The goal is to build an interface that feels **10 years ahead** of conventional 
 
 ## Screenshots
 
-> *Screenshots coming soon. To contribute visuals, see [CONTRIBUTING.md](CONTRIBUTING.md).*
+### Home — across all five themes
 
-| Nebula Mode | Terminal Mode | Solaris Mode |
-|---|---|---|
-| ![Nebula](screenshots/nebula.png) | ![Terminal](screenshots/terminal.png) | ![Solaris](screenshots/solaris.png) |
+|                                 Nebula                                  |                                  Terminal                                   |                                  Solaris                                  |                                 Lumina                                  |                                 Glassmorph                                 |
+| :---------------------------------------------------------------------: | :-------------------------------------------------------------------------: | :-----------------------------------------------------------------------: | :---------------------------------------------------------------------: | :------------------------------------------------------------------------: |
+| <img src="screenshots/nebula-home.png" alt="Nebula home" width="150" /> | <img src="screenshots/terminal-home.png" alt="Terminal home" width="150" /> | <img src="screenshots/solaris-home.png" alt="Solaris home" width="150" /> | <img src="screenshots/lumina-home.png" alt="Lumina home" width="150" /> | <img src="screenshots/glass-home.png" alt="Glassmorph home" width="150" /> |
 
-| Threat Intelligence | AI Explanation | Swarm System |
-|---|---|---|
-| ![Threats](screenshots/threats.png) | ![AI Engine](screenshots/ai-engine.png) | ![Swarm](screenshots/swarm.png) |
+### Core screens (Nebula theme)
+
+|                                Threat Feed                                 |                                Agents                                |                                Memory Stream                                |                                   Modes                                    |
+| :------------------------------------------------------------------------: | :------------------------------------------------------------------: | :-------------------------------------------------------------------------: | :------------------------------------------------------------------------: |
+| <img src="screenshots/nebula-threats.png" alt="Threat feed" width="180" /> | <img src="screenshots/nebula-agents.png" alt="Agents" width="180" /> | <img src="screenshots/nebula-memory.png" alt="Memory stream" width="180" /> | <img src="screenshots/nebula-modes.png" alt="Privacy modes" width="180" /> |
+
+> Screenshots for the other themes (Terminal, Solaris, Lumina, Glassmorph) live in the [`screenshots/`](screenshots/) folder.
+
+### Screenshot Guide
+
+Want to contribute or refresh the visuals? Run the app, capture each screen, and open a PR adding the images to the [`screenshots/`](screenshots/) folder.
+
+**Required screenshots**
+
+- **Home** — captured in **all five themes** (Nebula, Terminal, Solaris, Lumina, Glassmorph)
+- **Threat Feed**
+- **Agents**
+- **Memory Stream**
+- **Modes**
+
+**Naming format** — `screenshots/<theme>-<screen>.png`, lowercase, e.g.:
+
+```
+screenshots/nebula-home.png
+screenshots/terminal-threats.png
+screenshots/solaris-agents.png
+screenshots/lumina-memory.png
+screenshots/glass-modes.png
+```
+
+> Theme prefixes: `nebula`, `terminal`, `solaris`, `lumina`, `glass`. Screen suffixes: `home`, `threats`, `agents`, `memory`, `modes`.
+
+**Recommended dimensions** — `390x844px` (iPhone 14 Pro) or `1080x2400px` (Pixel 7). Keep aspect ratio consistent so the tables above stay aligned.
 
 ---
 
@@ -164,21 +201,21 @@ Intelligence Report (validated + rendered)
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Framework | Expo SDK 54, React Native 0.81 |
-| Navigation | Expo Router v6 |
-| Language | TypeScript (strict) |
-| State | Zustand with subscribeWithSelector |
-| Animations | React Native Reanimated v4 |
-| Graphics | React Native SVG |
-| Styling | NativeWind (Tailwind for RN) |
-| Backend | Node.js, Fastify v5 |
+| Layer       | Technology                           |
+| ----------- | ------------------------------------ |
+| Framework   | Expo SDK 54, React Native 0.81       |
+| Navigation  | Expo Router v6                       |
+| Language    | TypeScript (strict)                  |
+| State       | Zustand with subscribeWithSelector   |
+| Animations  | React Native Reanimated v4           |
+| Graphics    | React Native SVG                     |
+| Styling     | NativeWind (Tailwind for RN)         |
+| Backend     | Node.js, Fastify v5                  |
 | AI Provider | Pluggable (default: haiku-class LLM) |
-| Validation | Zod |
-| Realtime | Supabase (optional) |
-| Blur | expo-blur |
-| Gradients | expo-linear-gradient |
+| Validation  | Zod                                  |
+| Realtime    | Supabase (optional)                  |
+| Blur        | expo-blur                            |
+| Gradients   | expo-linear-gradient                 |
 
 ---
 
@@ -269,29 +306,34 @@ ALLOWED_ORIGINS=http://localhost:8081,exp://localhost:8081
 ## Development Roadmap
 
 ### Phase 1 - Core UI System
+
 - [x] Cinematic home screen with orbital score ring
 - [x] 5-theme system (Nebula, Terminal, Solaris, Glassmorph, Lumina)
 - [x] SignalDock floating navigation
 - [x] Ambient atmosphere engine
 
 ### Phase 2 - Threat Intelligence
+
 - [x] Real-time threat feed with live indicators
 - [x] Threat classification and risk scoring
 - [x] Resolve workflow
 - [x] Privacy mode system
 
 ### Phase 3 - AI Swarm
+
 - [x] 5-agent swarm with status visualization
 - [x] Swarm constellation (pentagon formation)
 - [x] Agent pulse animations synchronized to atmosphere
 
 ### Phase 4 - Cinematic Polish
+
 - [x] Planetary orbital ring system
 - [x] Floating orb ambient backgrounds
 - [x] Memory Stream (Replay) timeline
 - [x] Tension meter and threat pulse borders
 
 ### Phase 5 - AI Explanation Engine
+
 - [x] Secure backend proxy (keys never on client)
 - [x] Per-threat intelligence reports
 - [x] Rate limiting and prompt sanitization
@@ -299,21 +341,25 @@ ALLOWED_ORIGINS=http://localhost:8081,exp://localhost:8081
 - [x] Offline mock intelligence fallback
 
 ### Phase 6 - AI Swarm Dashboard
+
 - [ ] Per-agent detail screens
 - [ ] Swarm coordination visualization
 - [ ] Agent task assignment UI
 
 ### Phase 7 - Privacy Mode Enforcement
+
 - [ ] System-level permission restriction hooks
 - [ ] Mode-specific behavioral responses
 - [ ] Automation rules engine
 
 ### Phase 8 - Sensor Integration
+
 - [ ] Real device permission scanning (Android)
 - [ ] Background activity monitoring
 - [ ] Network request interception
 
 ### Phase 9 - Polish and Release
+
 - [ ] Custom fonts (Geist or Inter)
 - [ ] Haptic feedback system
 - [ ] Onboarding flow
