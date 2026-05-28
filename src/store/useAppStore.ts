@@ -12,6 +12,7 @@ import {
 } from '@services/mockData';
 import { computePrivacyScore, buildThreatEvents, buildScanOmnyxEvents, buildReplayEvents } from '@services/privacyIntelligence';
 import { loadScanState, saveScanState } from '@services/scanPersistence';
+import * as Haptics from 'expo-haptics';
 
 const MAX_RECENT_EVENTS = 50;
 
@@ -87,11 +88,21 @@ export const useAppStore = create<AppState>()(subscribeWithSelector((set, get) =
   setPrivacyMode: (mode) => set({ privacyMode: mode }),
 
   threatEvents: [],
-  addThreatEvent: (event) =>
-    set((state) => ({
-      threatEvents: [event, ...state.threatEvents],
-      unreadThreatCount: state.unreadThreatCount + 1,
-    })),
+  addThreatEvent: (event) => {
+    if (event.riskLevel === 'critical') {
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+  } else if (event.riskLevel === 'high') {
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+  }
+
+  set((state) => ({
+    threatEvents: [event, ...state.threatEvents],
+    unreadThreatCount: state.unreadThreatCount + 1,
+  }));
+},
+
+
+    
   resolveThreat: (id) =>
     set((state) => ({
       threatEvents: state.threatEvents.map((e) =>
