@@ -190,6 +190,7 @@ function ScanPanel({ themeId }: { themeId: string }) {
   const C = theme.colors;
   const { startScan, isScanning, isNativeAvailable } = usePermissionScan();
   const scanResult = useAppStore((s) => s.scanResult);
+  
 
   if (isScanning) {
     return (
@@ -517,12 +518,27 @@ function RiskAppList({ themeId }: { themeId: string }) {
   const theme = THEMES[themeId as keyof typeof THEMES];
   const C = theme.colors;
   const scanResult = useAppStore((s) => s.scanResult);
+  const [sortBy, setSortBy] = useState<'risk' | 'name' | 'recent'>('risk');
+  const sortedApps = scanResult
+  ? [...scanResult.profiles].sort((a, b) => {
+      switch (sortBy) {
+        case 'name':
+          return a.appName.localeCompare(b.appName);
 
-  const topApps = scanResult
-    ? scanResult.profiles.slice(0, 8)
-    : [];
+        case 'recent':
+          return (
+            new Date(b.lastUpdated).getTime() -
+            new Date(a.lastUpdated).getTime()
+          );
 
-  if (topApps.length === 0) return null;
+        case 'risk':
+        default:
+          return b.riskScore - a.riskScore;
+      }
+    })
+  : [];
+
+  if (sortedApps.length === 0) return null;
 
   return (
     <Animated.View
@@ -543,12 +559,51 @@ function RiskAppList({ themeId }: { themeId: string }) {
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
           <ShieldCheck size={11} color={C.primary} strokeWidth={2.5} />
           <Text style={{ fontSize: 9, color: C.primary, fontWeight: '600' }}>
-            {topApps.length} apps
+            {sortedApps.length} apps
           </Text>
         </View>
       </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          gap: 8,
+          marginBottom: 12,
+        }}
+      >
+        {(['risk', 'name', 'recent'] as const).map((option) => {
+          const active = sortBy === option;
 
-      {topApps.map((profile, i) => (
+          return (
+            <TouchableOpacity
+              key={option}
+              onPress={() => setSortBy(option)}
+              style={{
+                paddingHorizontal: 12,
+                paddingVertical: 6,
+                borderRadius: 999,
+                backgroundColor: active ? C.primary : C.surface1,
+                borderWidth: 1,
+                borderColor: active ? C.primary : C.borderDim,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: '600',
+                  color: active ? '#FFFFFF' : C.textPrimary,
+                }}
+              >
+                {option === 'risk'
+                  ? 'Risk'
+                  : option === 'name'
+                  ? 'Name'
+                  : 'Recent'}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+      {sortedApps.map((profile, i) => (
         <AppRiskCard
           key={profile.id}
           profile={profile}
@@ -613,22 +668,29 @@ function PrivacyChart({ themeId }: { themeId: string }) {
         </View>
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 6, height: 80 }}>
-        {values.map((v, i) => (
-          <BarItem
-            key={labels[i]}
-            value={v}
-            max={max}
-            isLatest={i === values.length - 1}
-            color={C.primary}
-            day={labels[i]}
-            dimColor={C.textDim}
-            index={i}
-          />
-        ))}
+        {labels.map((label, i) => {
+          const value = values[i];
+          const isMax = value === max;
+          return (
+            <View key={label} style={{ flex: 1 }}>
+              <Text style={{ fontSize: 9, color: C.textDim, marginBottom: 2 }}>{label}</Text>
+              <View style={{ backgroundColor: isMax ? C.primary : C.borderDim, height: 40, borderRadius: 8 }}>
+                <Animated.View style={{ backgroundColor: C.safe, height: `${(value / max) * 100}%`, borderRadius: 8 }} />
+              </View>
+            </View>
+          );
+        })}
       </View>
     </Animated.View>
   );
 }
+          
+
+
+
+  
+
+  
 
 // ── Quick actions ──────────────────────────────────────────────────────────────
 
