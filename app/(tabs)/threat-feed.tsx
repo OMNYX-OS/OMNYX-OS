@@ -361,7 +361,7 @@ function EmptyState({ hasScanned, C }: { hasScanned: boolean; C: any }) {
 type FilterId = RiskLevel | 'all';
 
 export default function ThreatFeedScreen() {
- const { 
+const { 
     threatEvents, 
     clearUnreadThreats, 
     currentTheme, 
@@ -371,11 +371,13 @@ export default function ThreatFeedScreen() {
 
   const [filter, setFilter] = useState<FilterId>('all');
   const [copiedId, setCopiedId] = useState<string | null>(null);
+
   const theme = THEMES[currentTheme];
   const C = theme.colors;
+  const timeFormat = '24h';
 
   const activeCount = threatEvents.filter((e) => !e.resolved).length;
-  const handleMarkAllResolved = () => resolveAllThreats(); 
+  const handleMarkAllResolved = () => resolveAllThreats();
 
   useEffect(() => {
     clearUnreadThreats();
@@ -383,7 +385,6 @@ export default function ThreatFeedScreen() {
 
   const filtered =
     filter === 'all' ? threatEvents : threatEvents.filter((e) => e.riskLevel === filter);
-
 
 
   const FILTERS: { id: FilterId; label: string; color: string }[] = [
