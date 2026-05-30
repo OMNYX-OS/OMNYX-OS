@@ -19,12 +19,11 @@ D --> E[React Components]
 
 ## 2. AI Flow
 
-
 ```mermaid
 graph TD
 A[Threat Event] --> B[aiProxy.ts]
 B --> C[server/proxy.ts]
-C --> D[AI Provider (Claude API)]
+C --> D[AI Provider Claude API]
 D --> E[Client Response]
 ```
 
