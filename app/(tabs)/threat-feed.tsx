@@ -354,21 +354,21 @@ function EmptyState({ hasScanned, C }: { hasScanned: boolean; C: any }) {
 type FilterId = RiskLevel | 'all';
 
 export default function ThreatFeedScreen() {
-  const { threatEvents, clearUnreadThreats, currentTheme, scanResult } = useStore();
+ const { 
+    threatEvents, 
+    clearUnreadThreats, 
+    currentTheme, 
+    scanResult, 
+    resolveAllThreats 
+  } = useAppStore();
+
   const [filter, setFilter] = useState<FilterId>('all');
 
   const theme = THEMES[currentTheme];
   const C = theme.colors;
-  const { resolveThreat } = useStore();
-    const activeCount = threatEvents.filter((e) => !e.resolved).length;
 
-  const handleMarkAllResolved = () => {
-    threatEvents.forEach((event) => {
-      if (!event.resolved) {
-        resolveThreat(event.id);
-      }
-    });
-  };
+  const activeCount = threatEvents.filter((e) => !e.resolved).length;
+  const handleMarkAllResolved = () => resolveAllThreats(); 
 
   useEffect(() => {
     clearUnreadThreats();
