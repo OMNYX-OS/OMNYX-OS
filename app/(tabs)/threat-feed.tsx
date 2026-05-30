@@ -361,11 +361,23 @@ function EmptyState({ hasScanned, C }: { hasScanned: boolean; C: any }) {
 type FilterId = RiskLevel | 'all';
 
 export default function ThreatFeedScreen() {
-  const { threatEvents, clearUnreadThreats, currentTheme, scanResult, resolveAllThreats, timeFormat} = useAppStore();
+const { 
+    threatEvents, 
+    clearUnreadThreats, 
+    currentTheme, 
+    scanResult, 
+    resolveAllThreats,
+    timeFormat 
+  } = useAppStore();
+
   const [filter, setFilter] = useState<FilterId>('all');
-  const [copiedId, setCopiedId] = useState<string | null>(null);
+ const [copiedId, setCopiedId] = useState<string | null>(null);
+
   const theme = THEMES[currentTheme];
   const C = theme.colors;
+ 
+  const activeCount = threatEvents.filter((e) => !e.resolved).length;
+  const handleMarkAllResolved = () => resolveAllThreats();
 
   useEffect(() => {
     clearUnreadThreats();
@@ -374,7 +386,6 @@ export default function ThreatFeedScreen() {
   const filtered =
     filter === 'all' ? threatEvents : threatEvents.filter((e) => e.riskLevel === filter);
 
-  const activeCount = threatEvents.filter((e) => !e.resolved).length;
 
   const FILTERS: { id: FilterId; label: string; color: string }[] = [
     { id: 'all', label: 'All', color: C.textSecondary },
@@ -432,6 +443,16 @@ export default function ThreatFeedScreen() {
             >
               THREATS
             </Text>
+                      {activeCount > 0 && (
+            <TouchableOpacity 
+              onPress={handleMarkAllResolved}
+              style={{ paddingVertical: 4, paddingHorizontal: 8 }}
+            >
+              <Text style={{ color: C.threat, fontSize: 14, fontWeight: '600' }}>
+                Mark All Resolved
+              </Text>
+            </TouchableOpacity>
+          )}
             <View
               style={{
                 flexDirection: 'row',
