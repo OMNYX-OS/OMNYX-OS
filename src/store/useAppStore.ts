@@ -90,33 +90,32 @@ export const useAppStore = create<AppState>()(subscribeWithSelector((set, get) =
   threatEvents: [],
   addThreatEvent: (event) => {
     if (event.riskLevel === 'critical') {
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
-  } else if (event.riskLevel === 'high') {
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
-  }
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+    } else if (event.riskLevel === 'high') {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+    }
 
-  set((state) => ({
-    threatEvents: [event, ...state.threatEvents],
-    unreadThreatCount: state.unreadThreatCount + 1,
-  }));
-},
+    set((state) => ({
+      threatEvents: [event, ...state.threatEvents],
+      unreadThreatCount: state.unreadThreatCount + 1,
+    }));
+  },
 
-
-    
   resolveThreat: (id) =>
     set((state) => ({
       threatEvents: state.threatEvents.map((e) =>
         e.id === id ? { ...e, resolved: true } : e
       ),
     })),
+
   resolveAllThreats: () =>
-  set((state) => ({
-    threatEvents: state.threatEvents.map((event) => ({
-      ...event,
-      resolved: true,
+    set((state) => ({
+      threatEvents: state.threatEvents.map((event) => ({
+        ...event,
+        resolved: true,
+      })),
+      unreadThreatCount: 0,
     })),
-    unreadThreatCount: 0,
-  })),
   unreadThreatCount: 0,
   clearUnreadThreats: () => set({ unreadThreatCount: 0 }),
 
