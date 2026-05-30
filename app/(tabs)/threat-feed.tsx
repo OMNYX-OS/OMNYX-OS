@@ -371,7 +371,7 @@ const {
   } = useAppStore();
 
   const [filter, setFilter] = useState<FilterId>('all');
- 
+ const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const theme = THEMES[currentTheme];
   const C = theme.colors;
