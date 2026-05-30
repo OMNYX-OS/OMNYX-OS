@@ -1,6 +1,8 @@
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Copy, Check } from 'lucide-react-native';
+import * as ExpoClipboard from 'expo-clipboard';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -22,7 +24,7 @@ import {
   Shield,
   ShieldCheck,
 } from 'lucide-react-native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { THEMES } from '@/theme';
 import { useAppStore } from '@store/useAppStore';
@@ -51,12 +53,15 @@ const EVENT_LABELS: Record<ThreatEventType, string> = {
   background_activity: 'Background Activity',
 };
 
-function timeAgo(date: Date): string {
-  const diff = Date.now() - date.getTime();
-  const mins = Math.floor(diff / 60000);
-  if (mins < 1) return 'just now';
-  if (mins < 60) return `${mins}m ago`;
-  return `${Math.floor(mins / 60)}h ago`;
+function formatTime(
+  date: Date,
+  timeFormat: '12h' | '24h'
+): string {
+  return date.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: timeFormat === '12h',
+  });
 }
 
 function LiveIndicator({ color }: { color: string }) {
@@ -98,10 +103,12 @@ function ThreatCard({
   event,
   index,
   themeId,
+  timeFormat,
 }: {
   event: ThreatEvent;
   index: number;
   themeId: string;
+  timeFormat: '12h' | '24h';
 }) {
   const theme = THEMES[themeId as keyof typeof THEMES];
   const C = theme.colors;
@@ -156,7 +163,7 @@ function ThreatCard({
               {event.appName}
             </Text>
             <Text style={{ fontSize: 10, color: C.textDim, marginTop: 2, letterSpacing: 0.3 }}>
-              {EVENT_LABELS[event.eventType]} · {timeAgo(event.timestamp)}
+              {EVENT_LABELS[event.eventType]} · {formatTime(event.timestamp, timeFormat)}
             </Text>
           </View>
 
@@ -363,7 +370,7 @@ export default function ThreatFeedScreen() {
   } = useAppStore();
 
   const [filter, setFilter] = useState<FilterId>('all');
-
+  const [copiedId, setCopiedId] = useState<string | null>(null);
   const theme = THEMES[currentTheme];
   const C = theme.colors;
 
@@ -385,7 +392,29 @@ export default function ThreatFeedScreen() {
     { id: 'high', label: 'High', color: '#FF7A00' },
     { id: 'medium', label: 'Medium', color: C.accent },
   ];
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const handleCopyThreat = async (threat: ThreatEvent) => {
+    const text = `[${threat.riskLevel.toUpperCase()}] ${threat.title} — ${threat.description}`;
 
+    await ExpoClipboard.setStringAsync(text);
+
+    if (copyTimerRef.current) {
+      clearTimeout(copyTimerRef.current);
+    }
+
+    setCopiedId(threat.id);
+
+    copyTimerRef.current = setTimeout(() => {
+      setCopiedId(null);
+    }, 1500);
+  };
+  useEffect(() => {
+    return () => {
+      if (copyTimerRef.current) {
+        clearTimeout(copyTimerRef.current);
+      }
+    };
+  }, []);
   return (
     <View style={{ flex: 1, backgroundColor: C.bg }}>
       <LinearGradient
@@ -482,6 +511,31 @@ export default function ThreatFeedScreen() {
           </View>
         </View>
 
+        {!filtered.every(event => event.resolved) && <TouchableOpacity
+          onPress={resolveAllThreats}
+          activeOpacity={0.7}
+          disabled={filtered.every((event) => event.resolved === true)}
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginHorizontal: 24,
+            marginBottom: 8,
+            gap: 6,
+            alignSelf: 'flex-end',
+            paddingHorizontal: 14,
+            paddingVertical: 8,
+            borderRadius: 10,
+            backgroundColor: `${C.primary}12`,
+            borderWidth: 1,
+            borderColor: `${C.primary}30`,
+          }}
+        >
+          <Shield size={12} color={C.primary} />
+          <Text style={{ fontSize: 11, color: C.primary, fontWeight: '600' }}>
+            Mark All Resolved
+          </Text>
+        </TouchableOpacity>}
+       
         {filtered.length === 0 ? (
           <EmptyState hasScanned={scanResult !== null} C={C} />
         ) : (
@@ -492,7 +546,33 @@ export default function ThreatFeedScreen() {
               const isCritical = !item.resolved && item.riskLevel === 'critical';
               return (
                 <ThreatPulseWrapper isCritical={isCritical} riskColor={C.threat}>
-                  <ThreatCard event={item} index={index} themeId={currentTheme} />
+                  <View style={{ position: 'relative' }}>
+                    <ThreatCard event={item} index={index} themeId={currentTheme} timeFormat={timeFormat} />
+
+                    <TouchableOpacity
+                      onPress={() => handleCopyThreat(item)}
+                      activeOpacity={0.7}
+                      style={{
+                        position: 'absolute',
+                        top: 12,
+                        right: 12,
+                        width: 34,
+                        height: 34,
+                        borderRadius: 17,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: C.glass1,
+                        borderWidth: 1,
+                        borderColor: C.borderDim,
+                      }}
+                    >
+                      {copiedId === item.id ? (
+                        <Check size={16} color={C.threat} />
+                      ) : (
+                        <Copy size={16} color={C.textDim} />
+                      )}
+                    </TouchableOpacity>
+                  </View>
                 </ThreatPulseWrapper>
               );
             }}

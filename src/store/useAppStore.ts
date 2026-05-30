@@ -32,9 +32,13 @@ interface AppState {
   privacyMode: PrivacyMode;
   setPrivacyMode: (mode: PrivacyMode) => void;
 
+  timeFormat: '12h' | '24h';
+  setTimeFormat: (format: '12h' | '24h') => void;
+
   threatEvents: ThreatEvent[];
   addThreatEvent: (event: ThreatEvent) => void;
   resolveThreat: (id: string) => void;
+  resolveAllThreats: () => void;
   unreadThreatCount: number;
   clearUnreadThreats: () => void;
 
@@ -85,6 +89,9 @@ export const useAppStore = create<AppState>()(subscribeWithSelector((set, get) =
   privacyMode: 'normal',
   setPrivacyMode: (mode) => set({ privacyMode: mode }),
 
+  timeFormat: '24h',
+  setTimeFormat: (format) => set({ timeFormat: format }),
+
   threatEvents: [],
   addThreatEvent: (event) =>
     set((state) => ({
@@ -97,6 +104,14 @@ export const useAppStore = create<AppState>()(subscribeWithSelector((set, get) =
         e.id === id ? { ...e, resolved: true } : e
       ),
     })),
+  resolveAllThreats: () =>
+  set((state) => ({
+    threatEvents: state.threatEvents.map((event) => ({
+      ...event,
+      resolved: true,
+    })),
+    unreadThreatCount: 0,
+  })),
   unreadThreatCount: 0,
   clearUnreadThreats: () => set({ unreadThreatCount: 0 }),
 
