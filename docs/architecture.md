@@ -4,7 +4,7 @@ This document explains how OMNYX system flows work.
 
 ---
 
-## Device Scan Flow
+## 1.Device Scan Flow
 
 ```mermaid
 graph TD
