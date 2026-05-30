@@ -366,16 +366,16 @@ const {
     clearUnreadThreats, 
     currentTheme, 
     scanResult, 
-    resolveAllThreats 
+    resolveAllThreats,
+    timeFormat 
   } = useAppStore();
 
   const [filter, setFilter] = useState<FilterId>('all');
-  const [copiedId, setCopiedId] = useState<string | null>(null);
+ 
 
   const theme = THEMES[currentTheme];
   const C = theme.colors;
-  const timeFormat = '24h';
-
+ 
   const activeCount = threatEvents.filter((e) => !e.resolved).length;
   const handleMarkAllResolved = () => resolveAllThreats();
 
