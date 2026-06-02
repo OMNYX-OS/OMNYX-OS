@@ -33,31 +33,59 @@ function genId(prefix: string): string {
   return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
 }
 
-// ── Privacy score computation from real data ───────────────────────────────────
+// — Privacy score computation from real data 
 
+/**
+ * Calculates a weighted privacy score from four key data dimensions.
+ * The scoring model considers critical risk apps, high risk apps, 
+ * medium risk apps, and detected trackers.
+ * 
+ * @param {ScanResult} scanResult - The structural results containing app profiles to analyze.
+ * @param {number} previousScore - The baseline privacy score from the prior assessment.
+ * @returns {PrivacyScoreData} Object containing individual metric breakdowns and the final score.
+ */
 export function computePrivacyScore(
   scanResult: ScanResult,
   previousScore: number,
 ): PrivacyScoreData {
   const { profiles } = scanResult;
+  
+  // Exclude default system-level applications to isolate user-installed app risks
   const nonSystem = profiles.filter(p => !p.isSystemApp);
 
+  // Dimension 1: Count non-system applications classified under the critical risk tier
   const criticalApps = nonSystem.filter(p => p.riskTier === 'critical');
+  
+  // Dimension 2: Count non-system applications classified under the high risk tier
   const highApps = nonSystem.filter(p => p.riskTier === 'high');
+  
+  // Dimension 3: Count non-system applications classified under the medium risk tier
   const mediumApps = nonSystem.filter(p => p.riskTier === 'medium');
+  
+  // Dimension 4: Extract and evaluate tracker signatures embedded across non-system apps
   const trackerResults = detectTrackers(nonSystem);
 
-  // Penalty model: each category has a cap to prevent single-app domination
+
+    // Penalty model: each category has a cap to prevent single-app domination
+  
+  // Calculate total app permission penalties using weights: 18 for critical, 8 for high, 2 for medium.
+  // Cap the aggregate permission penalty between a minimum of 0 and maximum of 60.
   const permissionPenalty = clamp(
     criticalApps.length * 18 + highApps.length * 8 + mediumApps.length * 2,
-    0, 60
+    0,
+    60
   );
+
+  // Calculate total tracker penalties using weights: 12 for critical risk, 6 for high risk trackers.
+  // Cap the aggregate tracker penalty between a minimum of 0 and maximum of 30.
   const trackerPenalty = clamp(
     trackerResults.filter(t => t.overallRisk === 'critical').length * 12 +
     trackerResults.filter(t => t.overallRisk === 'high').length * 6,
-    0, 30
+    0,
+    30
   );
 
+  // Convert penalties into scores out of 100, bounded to stay between 20 and 100
   const permissionsScore = clamp(100 - permissionPenalty, 20, 100);
   const trackersScore = clamp(100 - trackerPenalty, 20, 100);
 
