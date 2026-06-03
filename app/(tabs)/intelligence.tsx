@@ -631,7 +631,7 @@ function RiskLegend({ themeId }: { themeId: string }) {
                   : item.tier === 'high'
                   ? C.warning
                   : item.tier === 'medium'
-                  ? C.warning
+                  ? C.textPrimary
                   : item.tier === 'low'
                   ? C.textSecondary
                   : C.safe,
