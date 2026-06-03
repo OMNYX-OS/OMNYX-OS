@@ -625,16 +625,15 @@ function RiskLegend({ themeId }: { themeId: string }) {
               width: 10,
               height: 10,
               borderRadius: 5,
-              backgroundColor:
-                item.tier === 'critical'
-                  ? C.threat
-                  : item.tier === 'high'
-                  ? C.warning
-                  : item.tier === 'medium'
-                  ? C.textPrimary
-                  : item.tier === 'low'
-                  ? C.textSecondary
-                  : C.safe,
+              backgroundColor: (
+                {
+                  critical: C.threat,
+                  high: C.warning,
+                  medium: C.accent,
+                  low: C.primary,
+                  safe: C.safe,
+                } as Record<RiskTier, string>
+              )[item.tier],
               marginRight: 10,
             }}
           />
