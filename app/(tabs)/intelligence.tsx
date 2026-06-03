@@ -625,7 +625,16 @@ function RiskLegend({ themeId }: { themeId: string }) {
               width: 10,
               height: 10,
               borderRadius: 5,
-              backgroundColor: RISK_COLORS[item.tier],
+              backgroundColor:
+                item.tier === 'critical'
+                  ? C.threat
+                  : item.tier === 'high'
+                  ? C.warning
+                  : item.tier === 'medium'
+                  ? C.warning
+                  : item.tier === 'low'
+                  ? C.textSecondary
+                  : C.safe,
               marginRight: 10,
             }}
           />
