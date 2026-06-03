@@ -39,6 +39,7 @@ import { THEMES } from '@/theme';
 import { useAppStore } from '@store/useAppStore';
 import { usePermissionScan } from '@/hooks/usePermissionScan';
 import type { AppRiskProfile, RiskTier } from '@/types/permissions';
+import RiskLegend from '@/components/RiskLegend';
 
 const { width: SCREEN_W } = Dimensions.get('window');
 
@@ -557,109 +558,6 @@ function RiskAppList({ themeId }: { themeId: string }) {
         />
       ))}
     </Animated.View>
-  );
-}
-
-// ── Risk legend 
-function RiskLegend({ themeId }: { themeId: string }) {
-  const theme = THEMES[themeId as keyof typeof THEMES];
-  const C = theme.colors;
-
-  const legendItems = [
-    {
-      tier: 'critical' as RiskTier,
-      desc: 'Immediate privacy threat',
-    },
-    {
-      tier: 'high' as RiskTier,
-      desc: 'Serious privacy concern',
-    },
-    {
-      tier: 'medium' as RiskTier,
-      desc: 'Needs attention',
-    },
-    {
-      tier: 'low' as RiskTier,
-      desc: 'Minor concern',
-    },
-    {
-      tier: 'safe' as RiskTier,
-      desc: 'No detected threat',
-    },
-  ];
-
-  return (
-    <View
-      style={{
-        marginHorizontal: 20,
-        marginBottom: 12,
-        borderRadius: 16,
-        borderWidth: 1,
-        borderColor: C.borderDim,
-        backgroundColor: C.surface1,
-        padding: 16,
-      }}
-    >
-      <Text
-        style={{
-          fontSize: 12,
-          fontWeight: '700',
-          color: C.textPrimary,
-          marginBottom: 10,
-        }}
-      >
-        Risk Legend
-      </Text>
-
-      {legendItems.map((item) => (
-        <View
-          key={item.tier}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginBottom: 8,
-          }}
-        >
-          <View
-            style={{
-              width: 10,
-              height: 10,
-              borderRadius: 5,
-              backgroundColor: (
-                {
-                  critical: C.threat,
-                  high: C.warning,
-                  medium: C.accent,
-                  low: C.primary,
-                  safe: C.safe,
-                } as Record<RiskTier, string>
-              )[item.tier],
-              marginRight: 10,
-            }}
-          />
-
-          <Text
-            style={{
-              color: C.textPrimary,
-              fontSize: 11,
-              fontWeight: '600',
-            }}
-          >
-            {RISK_LABELS[item.tier]}
-          </Text>
-
-          <Text
-            style={{
-              color: C.textDim,
-              fontSize: 10,
-              marginLeft: 6,
-            }}
-          >
-            — {item.desc}
-          </Text>
-        </View>
-      ))}
-    </View>
   );
 }
 
