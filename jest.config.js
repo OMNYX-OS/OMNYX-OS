@@ -1,11 +1,16 @@
 /**
- * Two test projects:
- *  - "logic": pure TypeScript modules (services, utils) with no React Native
- *    runtime deps. Uses ts-jest in a node environment — fast and lightweight.
- *  - "components": React component tests (*.test.tsx) that need the React
- *    Native / Expo transform + mocks. Uses the jest-expo preset and
- *    @testing-library/react-native.
+ * Expo polyfills MUST load before jest-expo initializes
  */
+global.FormData = class FormData {};
+global.Blob = class Blob {};
+global.File = class File {};
+
+/**
+ * Two test projects:
+ *  - "logic": pure TypeScript modules
+ *  - "components": React Native / Expo tests
+ */
+
 const moduleNameMapper = {
   '^@/(.*)$': '<rootDir>/src/$1',
   '^@components/(.*)$': '<rootDir>/src/components/$1',
@@ -30,15 +35,24 @@ module.exports = {
       testMatch: ['**/__tests__/**/*.test.ts'],
       moduleNameMapper,
       transform: {
-        '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.jest.json', isolatedModules: true }],
+        '^.+\\.tsx?$': [
+          'ts-jest',
+          {
+            tsconfig: 'tsconfig.jest.json',
+            isolatedModules: true,
+          },
+        ],
       },
     },
+
     {
       displayName: 'components',
       preset: 'jest-expo',
       testMatch: ['**/__tests__/**/*.test.tsx'],
       moduleNameMapper,
-      setupFilesAfterEnv: ['<rootDir>/jest.setup.components.js'],
+      setupFilesAfterEnv: [
+        '<rootDir>/jest.setup.components.js',
+      ],
     },
   ],
 };

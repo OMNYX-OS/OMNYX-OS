@@ -26,7 +26,12 @@ jest.mock('react-native-reanimated', () => {
     cancelAnimation: () => {},
   };
 });
+import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 
+jest.mock(
+  '@react-native-async-storage/async-storage',
+  () => mockAsyncStorage
+);
 // lucide-react-native: trend icons aren't relevant to text assertions.
 jest.mock('lucide-react-native', () => {
   const { View } = require('react-native');
