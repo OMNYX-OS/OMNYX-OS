@@ -152,10 +152,12 @@ function ScanProgressBar({ C }: { C: any }) {
   const scanPhase = useAppStore((s) => s.scanPhase);
   const widthPct = useSharedValue(0);
 
-  useEffect(() => {
-    widthPct.value = withSpring(scanProgress, { damping: 20, stiffness: 50 });
-  }, [scanProgress]);
-
+ useEffect(() => {
+  widthPct.value = withTiming(scanProgress, { duration: 300 });
+  return () => {
+    cancelAnimation(widthPct);
+  };
+}, [scanProgress]);
   const barStyle = useAnimatedStyle(() => ({
     width: `${widthPct.value}%`,
   }));
