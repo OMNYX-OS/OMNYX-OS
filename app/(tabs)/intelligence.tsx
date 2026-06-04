@@ -590,7 +590,7 @@ function RiskAppList({ themeId }: { themeId: string }) {
                 style={{
                   fontSize: 10,
                   fontWeight: '600',
-                  color: active ? '#FFFFFF' : C.textPrimary,
+                  color: active ? C.bg : C.textPrimary,
                 }}
               >
                 {option === 'risk'
@@ -621,65 +621,95 @@ function PrivacyChart({ themeId }: { themeId: string }) {
   const theme = THEMES[themeId as keyof typeof THEMES];
   const C = theme.colors;
   const privacyScore = useAppStore((s) => s.privacyScore);
-  const scanResult = useAppStore((s) => s.scanResult);
 
-  const containerStyle = {
-    marginHorizontal: 20, borderRadius: 16, borderWidth: 1,
-    borderColor: C.borderDim, backgroundColor: C.surface1,
-    padding: 16, marginBottom: 12,
-  };
-
-  if (!scanResult) {
-    return (
-      <Animated.View entering={FadeInDown.delay(300).springify()} style={[containerStyle, { alignItems: 'center', paddingVertical: 24 }]}>
-        <TrendingUp size={22} color={C.textDim} strokeWidth={1.5} style={{ marginBottom: 10, opacity: 0.4 }} />
-        <Text style={{ fontSize: 12, fontWeight: '700', color: C.textPrimary, marginBottom: 6 }}>Score Breakdown</Text>
-        <Text style={{ fontSize: 11, color: C.textDim, textAlign: 'center', lineHeight: 16 }}>
-          Run a device scan to see your privacy score breakdown by category.
-        </Text>
-      </Animated.View>
-    );
-  }
-
-  const labels = ['PERM', 'TRKR', 'NET', 'DATA'];
-  const values = [
-    privacyScore.breakdown.permissions,
-    privacyScore.breakdown.trackers,
-    privacyScore.breakdown.networkActivity,
-    privacyScore.breakdown.dataCollection,
-  ];
-  const max = Math.max(...values, 1);
-  const delta = privacyScore.current - privacyScore.previous;
-  const trendColor = delta >= 0 ? C.safe : C.threat;
-  const TrendIcon = delta >= 0 ? TrendingUp : TrendingDown;
+  const data = privacyScore.history.slice(-7);
+  const max = Math.max(...data.map((d) => d.score), 1);
+  const latest = data[data.length - 1];
+  const delta = latest.score - data[0].score;
 
   return (
-    <Animated.View entering={FadeInDown.delay(300).springify()} style={containerStyle}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+    <Animated.View
+      entering={FadeInDown.delay(300).springify()}
+      style={{
+        marginHorizontal: 20,
+        borderRadius: 16,
+        borderWidth: 1,
+        borderColor: C.borderDim,
+        backgroundColor: C.surface1,
+        padding: 16,
+        marginBottom: 12,
+      }}
+    >
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 16,
+        }}
+      >
         <View>
-          <Text style={{ fontSize: 12, fontWeight: '700', color: C.textPrimary }}>Score Breakdown</Text>
-          <Text style={{ fontSize: 9, color: C.textDim, marginTop: 2, letterSpacing: 1 }}>CATEGORY ANALYSIS</Text>
+          <Text
+            style={{
+              fontSize: 12,
+              fontWeight: '700',
+              color: C.textPrimary,
+            }}
+          >
+            Privacy Trend
+          </Text>
+          <Text
+            style={{
+              fontSize: 9,
+              color: C.textDim,
+              marginTop: 2,
+              letterSpacing: 1,
+            }}
+          >
+            7 DAY ANALYSIS
+          </Text>
         </View>
+
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-          <TrendIcon size={12} color={trendColor} strokeWidth={2.5} />
-          <Text style={{ fontSize: 11, color: trendColor, fontWeight: '700' }}>
-            {delta >= 0 ? '+' : ''}{delta} pts
+          {delta >= 0 ? (
+            <TrendingUp size={12} color={C.safe} strokeWidth={2.5} />
+          ) : (
+            <TrendingDown size={12} color={C.threat} strokeWidth={2.5} />
+          )}
+
+          <Text
+            style={{
+              fontSize: 11,
+              color: delta >= 0 ? C.safe : C.threat,
+              fontWeight: '700',
+            }}
+          >
+            {delta >= 0 ? '+' : ''}
+            {delta} pts
           </Text>
         </View>
       </View>
-      <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 6, height: 80 }}>
-        {labels.map((label, i) => {
-          const value = values[i];
-          const isMax = value === max;
-          return (
-            <View key={label} style={{ flex: 1 }}>
-              <Text style={{ fontSize: 9, color: C.textDim, marginBottom: 2 }}>{label}</Text>
-              <View style={{ backgroundColor: isMax ? C.primary : C.borderDim, height: 40, borderRadius: 8 }}>
-                <Animated.View style={{ backgroundColor: C.safe, height: `${(value / max) * 100}%`, borderRadius: 8 }} />
-              </View>
-            </View>
-          );
-        })}
+
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'flex-end',
+          gap: 8,
+          height: 90,
+        }}
+      >
+        {data.map((d, i) => (
+          <BarItem
+            key={d.day}
+            value={d.score}
+            max={max}
+            isLatest={i === data.length - 1}
+            color={C.primary}
+            day={d.day}
+            dimColor={C.textDim}
+            index={i}
+          />
+        ))}
       </View>
     </Animated.View>
   );
