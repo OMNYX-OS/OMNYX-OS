@@ -100,7 +100,6 @@ export const useAppStore = create<AppState>()(subscribeWithSelector((set, get) =
     } else if (event.riskLevel === 'high') {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
     }
-
     set((state) => ({
       threatEvents: [event, ...state.threatEvents],
       unreadThreatCount: state.unreadThreatCount + 1,
@@ -167,7 +166,6 @@ export const useAppStore = create<AppState>()(subscribeWithSelector((set, get) =
     for (const event of omnyxEvents) {
       get().addRealtimeEvent(event);
     }
-
     saveScanState(result, threatEvents, privacyScore.current).catch(() => {});
   },
 
