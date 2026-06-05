@@ -146,12 +146,16 @@ function ScanPulse({ color }: { color: string }) {
     </View>
   );
 }
-
+/**
+ * Renders an animated scan progress bar that smoothly interpolates
+ * between progress values using withTiming animation.
+ * @param C - Theme colors object containing primary color and style tokens
+ */
 function ScanProgressBar({ C }: { C: any }) {
   const scanProgress = useAppStore((s) => s.scanProgress);
   const scanPhase = useAppStore((s) => s.scanPhase);
   const widthPct = useSharedValue(0);
-
+/** Animates progress bar width smoothly; cancels animation on unmount. */
  useEffect(() => {
   widthPct.value = withTiming(scanProgress, { duration: 300 });
   return () => {
