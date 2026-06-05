@@ -361,7 +361,7 @@ function EmptyState({ hasScanned, C }: { hasScanned: boolean; C: any }) {
 type FilterId = RiskLevel | 'all';
 
 export default function ThreatFeedScreen() {
-  const { threatEvents, clearUnreadThreats, currentTheme, scanResult, resolveAllThreats, timeFormat} = useAppStore();
+  const { threatEvents, clearUnreadThreats, currentTheme, scanResult, resolveAllThreats, timeFormat } = useAppStore();
   const [filter, setFilter] = useState<FilterId>('all');
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const theme = THEMES[currentTheme];
@@ -515,7 +515,7 @@ export default function ThreatFeedScreen() {
             Mark All Resolved
           </Text>
         </TouchableOpacity>}
-       
+
         {filtered.length === 0 ? (
           <EmptyState hasScanned={scanResult !== null} C={C} />
         ) : (
@@ -530,6 +530,12 @@ export default function ThreatFeedScreen() {
                     <ThreatCard event={item} index={index} themeId={currentTheme} timeFormat={timeFormat} />
 
                     <TouchableOpacity
+                      accessibilityRole="button"
+                      accessibilityLabel={
+                        copiedId === item.id
+                          ? 'Threat details copied'
+                          : 'Copy threat details'
+                      }
                       onPress={() => handleCopyThreat(item)}
                       activeOpacity={0.7}
                       style={{
