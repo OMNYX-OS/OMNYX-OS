@@ -35,7 +35,13 @@ D --> E[Client Response]
 
 ```mermaid
 graph TD
-A[Zustand Store] --> B[React Components]
+    A[Zustand Store] -->|1. Selects State / Subscribes| B[React Components]
+    B -->|2. Dispatches Actions / Triggers Events| C[Store Actions / Setters]
+    C -->|3. Updates State| A
+
+    style A fill:#2f4f4f,stroke:#333,stroke-width:2px,color:#fff
+    style B fill:#00d8ff,stroke:#333,stroke-width:2px,color:#000
+    style C fill:#fa8072,stroke:#333,stroke-width:2px,color:#000
 ```
 
 ---
