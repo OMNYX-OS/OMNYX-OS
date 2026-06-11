@@ -1,4 +1,11 @@
-import { View, ScrollView, Text, Dimensions } from 'react-native';
+import {
+  View,
+  ScrollView,
+  Text,
+  Dimensions,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, {
@@ -11,8 +18,15 @@ import Animated, {
   cancelAnimation,
   FadeInDown,
 } from 'react-native-reanimated';
-import { Shield, Wifi, Brain, Zap, Activity, Cpu } from 'lucide-react-native';
-import { useEffect } from 'react';
+import {
+  Shield,
+  Wifi,
+  Brain,
+  Zap,
+  Activity,
+  Cpu,
+} from 'lucide-react-native';
+import { useEffect, useState } from 'react';
 
 import { THEMES } from '@/theme';
 import { useAppStore } from '@store/useAppStore';
@@ -43,63 +57,117 @@ const CX = SWARM_W / 2;
 const CY = 85;
 const R = Math.min(58, CX - 28);
 
-// Pentagon positions (starting from top, clockwise)
 const AGENT_POS = Array.from({ length: 5 }, (_, i) => {
   const theta = -Math.PI / 2 + (2 * Math.PI / 5) * i;
-  return { x: Math.round(CX + R * Math.cos(theta)), y: Math.round(CY + R * Math.sin(theta)) };
+
+  return {
+    x: Math.round(CX + R * Math.cos(theta)),
+    y: Math.round(CY + R * Math.sin(theta)),
+  };
 });
 
-// Connection pairs: pentagon + 2 key diagonals
-const CONNECTIONS = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 0], [0, 2], [0, 3]];
+const CONNECTIONS = [
+  [0, 1],
+  [1, 2],
+  [2, 3],
+  [3, 4],
+  [4, 0],
+  [0, 2],
+  [0, 3],
+];
 
 function ConnectionLine({
-  x1, y1, x2, y2, color, phase,
-}: { x1: number; y1: number; x2: number; y2: number; color: string; phase: number }) {
-  const dx = x2 - x1, dy = y2 - y1;
-  const len = Math.sqrt(dx * dx + dy * dy);
-  const angle = Math.atan2(dy, dx) * (180 / Math.PI);
-  const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+  x1,
+  y1,
+  x2,
+  y2,
+  color,
+  phase,
+}: {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+  color: string;
+  phase: number;
+}) {
+  const dx = x2 - x1;
+  const dy = y2 - y1;
 
-  const op = useSharedValue(0.10);
+  const len = Math.sqrt(dx * dx + dy * dy);
+
+  const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+
+  const mx = (x1 + x2) / 2;
+  const my = (y1 + y2) / 2;
+
+  const op = useSharedValue(0.1);
+
   useEffect(() => {
     op.value = withRepeat(
       withSequence(
-        withTiming(0.38, { duration: 1800 + phase }),
-        withTiming(0.10, { duration: 1800 + phase })
+        withTiming(0.38, {
+          duration: 1800 + phase,
+        }),
+        withTiming(0.1, {
+          duration: 1800 + phase,
+        })
       ),
-      -1, true
+      -1,
+      true
     );
+
     return () => cancelAnimation(op);
   }, []);
 
-  const s = useAnimatedStyle(() => ({ opacity: op.value }));
+  const s = useAnimatedStyle(() => ({
+    opacity: op.value,
+  }));
 
   return (
-    <Animated.View style={[{
-      position: 'absolute',
-      left: mx - len / 2,
-      top: my - 0.5,
-      width: len,
-      height: 1,
-      backgroundColor: color,
-      transform: [{ rotate: `${angle}deg` }],
-    }, s]} />
+    <Animated.View
+      style={[
+        {
+          position: 'absolute',
+          left: mx - len / 2,
+          top: my - 0.5,
+          width: len,
+          height: 1,
+          backgroundColor: color,
+          transform: [{ rotate: `${angle}deg` }],
+        },
+        s,
+      ]}
+    />
   );
 }
 
-function SwarmDot({ x, y, agent, C }: { x: number; y: number; agent: AIAgent; C: any }) {
+function SwarmDot({
+  x,
+  y,
+  agent,
+  C,
+}: {
+  x: number;
+  y: number;
+  agent: AIAgent;
+  C: any;
+}) {
   const statusColorMap: Record<AgentStatus, string> = {
     active: C.safe,
     scanning: C.accent,
     idle: C.textDim,
     alert: C.threat,
   };
+
   const sc = statusColorMap[agent.status];
+
   const isLive = agent.status !== 'idle';
 
-  // Ring uses scale-only (no opacity) to avoid layout animation conflicts
   const ringScale = useSharedValue(1);
-  const duration = 950 + (agent.confidenceScore % 8) * 55;
+
+  const duration =
+    950 + (agent.confidenceScore % 8) * 55;
 
   useEffect(() => {
     if (isLive) {
@@ -108,9 +176,11 @@ function SwarmDot({ x, y, agent, C }: { x: number; y: number; agent: AIAgent; C:
           withTiming(3.2, { duration }),
           withTiming(1, { duration: 0 })
         ),
-        -1, false
+        -1,
+        false
       );
     }
+
     return () => cancelAnimation(ringScale);
   }, [isLive]);
 
@@ -119,85 +189,254 @@ function SwarmDot({ x, y, agent, C }: { x: number; y: number; agent: AIAgent; C:
   }));
 
   return (
-    <View style={{ position: 'absolute', left: x - 14, top: y - 14, width: 28, height: 28, alignItems: 'center', justifyContent: 'center' }}>
-      {/* Echo ring (scale only) */}
+    <View
+      style={{
+        position: 'absolute',
+        left: x - 14,
+        top: y - 14,
+        width: 28,
+        height: 28,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       {isLive && (
-        <Animated.View style={[{
-          position: 'absolute', width: 18, height: 18, borderRadius: 9,
-          borderWidth: 1, borderColor: sc,
-        }, ringStyle]} />
+        <Animated.View
+          style={[
+            {
+              position: 'absolute',
+              width: 18,
+              height: 18,
+              borderRadius: 9,
+              borderWidth: 1,
+              borderColor: sc,
+            },
+            ringStyle,
+          ]}
+        />
       )}
-      {/* Core */}
-      <View style={{
-        width: 14, height: 14, borderRadius: 7,
-        backgroundColor: agent.color,
-        shadowColor: sc, shadowOffset: { width: 0, height: 0 },
-        shadowRadius: isLive ? 8 : 3, shadowOpacity: isLive ? 1 : 0.4,
-        zIndex: 2,
-      }} />
+
+      <View
+        style={{
+          width: 14,
+          height: 14,
+          borderRadius: 7,
+          backgroundColor: agent.color,
+          shadowColor: sc,
+          shadowOffset: {
+            width: 0,
+            height: 0,
+          },
+          shadowRadius: isLive ? 8 : 3,
+          shadowOpacity: isLive ? 1 : 0.4,
+          zIndex: 2,
+        }}
+      />
     </View>
   );
 }
 
-function SwarmField({ agents, themeId }: { agents: AIAgent[]; themeId: string }) {
-  const C = THEMES[themeId as keyof typeof THEMES].colors;
+function SwarmField({
+  agents,
+  themeId,
+}: {
+  agents: AIAgent[];
+  themeId: string;
+}) {
+  const C =
+    THEMES[themeId as keyof typeof THEMES].colors;
+
+  const [selectedAgent, setSelectedAgent] =
+    useState<AIAgent | null>(null);
+
   if (agents.length === 0) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 }}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: 20,
+        }}
+      >
         <Cpu color={C.textSecondary} size={32} />
-        <Text style={{ color: C.textSecondary, fontSize: 18, marginTop: 8, fontWeight: 'bold' }}>
+
+        <Text
+          style={{
+            color: C.textSecondary,
+            fontSize: 18,
+            marginTop: 8,
+            fontWeight: 'bold',
+          }}
+        >
           AI Swarm Offline
         </Text>
-        <Text style={{ color: C.textDim, fontSize: 14, marginTop: 4, textAlign: 'center' }}>
-          Agents are initializing. Try restarting the app.
+
+        <Text
+          style={{
+            color: C.textDim,
+            fontSize: 14,
+            marginTop: 4,
+            textAlign: 'center',
+          }}
+        >
+          Agents are initializing. Try restarting
+          the app.
         </Text>
       </View>
     );
   }
 
   return (
-    <View style={{ marginHorizontal: 20, marginBottom: 20 }}>
-      <Text style={{ fontSize: 10, letterSpacing: 2.5, color: C.textDim, marginBottom: 10, fontWeight: '600' }}>
-        SWARM CONSTELLATION
-      </Text>
-      <View style={{
-        width: SWARM_W, height: SWARM_H,
-        backgroundColor: C.surface1,
-        borderRadius: 20, borderWidth: 1,
-        borderColor: C.borderDim, overflow: 'hidden',
-      }}>
-        {/* Central glow */}
-        <View style={{
-          position: 'absolute', left: CX - 40, top: CY - 40,
-          width: 80, height: 80, borderRadius: 40,
-          backgroundColor: `${C.primary}08`,
-        }} />
+    <TouchableWithoutFeedback
+      onPress={() => setSelectedAgent(null)}
+    >
+      <View
+        style={{
+          marginHorizontal: 20,
+          marginBottom: 20,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 10,
+            letterSpacing: 2.5,
+            color: C.textDim,
+            marginBottom: 10,
+            fontWeight: '600',
+          }}
+        >
+          SWARM CONSTELLATION
+        </Text>
 
-        {/* Connection lines */}
-        {CONNECTIONS.map(([a, b], i) => (
-          <ConnectionLine
-            key={`${a}-${b}`}
-            x1={AGENT_POS[a].x} y1={AGENT_POS[a].y}
-            x2={AGENT_POS[b].x} y2={AGENT_POS[b].y}
-            color={C.primary}
-            phase={i * 200}
+        <View
+          style={{
+            width: SWARM_W,
+            height: SWARM_H,
+            backgroundColor: C.surface1,
+            borderRadius: 20,
+            borderWidth: 1,
+            borderColor: C.borderDim,
+            overflow: 'hidden',
+          }}
+        >
+          <View
+            style={{
+              position: 'absolute',
+              left: CX - 40,
+              top: CY - 40,
+              width: 80,
+              height: 80,
+              borderRadius: 40,
+              backgroundColor: `${C.primary}08`,
+            }}
           />
-        ))}
 
-        {/* Agent dots */}
-        {agents.slice(0, 5).map((agent, i) => (
-          <SwarmDot
-            key={agent.id}
-            x={AGENT_POS[i].x}
-            y={AGENT_POS[i].y}
-            agent={agent}
-            C={C}
-          />
-        ))}
+          {CONNECTIONS.map(([a, b], i) => (
+            <ConnectionLine
+              key={`${a}-${b}`}
+              x1={AGENT_POS[a].x}
+              y1={AGENT_POS[a].y}
+              x2={AGENT_POS[b].x}
+              y2={AGENT_POS[b].y}
+              color={C.primary}
+              phase={i * 200}
+            />
+          ))}
+
+          {agents.slice(0, 5).map((agent, i) => (
+            <TouchableOpacity
+              key={agent.id}
+              activeOpacity={0.9}
+              onLongPress={() =>
+                setSelectedAgent(agent)
+              }
+              style={{
+                position: 'absolute',
+                left: AGENT_POS[i].x - 24,
+                top: AGENT_POS[i].y - 24,
+                width: 48,
+                height: 48,
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 5,
+              }}
+            >
+              <SwarmDot
+                x={AGENT_POS[i].x}
+                y={AGENT_POS[i].y}
+                agent={agent}
+                C={C}
+              />
+            </TouchableOpacity>
+          ))}
+
+          {selectedAgent && (
+            <View
+              style={{
+                position: 'absolute',
+                bottom: 16,
+                alignSelf: 'center',
+                width: 220,
+                backgroundColor: C.surface2,
+                borderRadius: 16,
+                borderWidth: 1,
+                borderColor: C.border,
+                padding: 14,
+                zIndex: 20,
+              }}
+            >
+              <Text
+                style={{
+                  color: C.textPrimary,
+                  fontSize: 15,
+                  fontWeight: '700',
+                  marginBottom: 4,
+                }}
+              >
+                {selectedAgent.name}
+              </Text>
+
+              <Text
+                style={{
+                  color:
+                    selectedAgent.status ===
+                    'alert'
+                      ? C.threat
+                      : selectedAgent.status ===
+                        'active'
+                      ? C.safe
+                      : selectedAgent.status ===
+                        'scanning'
+                      ? C.accent
+                      : C.textDim,
+                  fontSize: 11,
+                  fontWeight: '700',
+                  marginBottom: 8,
+                  letterSpacing: 1,
+                }}
+              >
+                {selectedAgent.status.toUpperCase()}
+              </Text>
+
+              <Text
+                style={{
+                  color: C.textSecondary,
+                  fontSize: 12,
+                  lineHeight: 18,
+                }}
+              >
+                {selectedAgent.currentActivity}
+              </Text>
+            </View>
+          )}
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
+
+
 
 // ─── Status Pulse ──────────────────────────────────────────────────────────────
 
