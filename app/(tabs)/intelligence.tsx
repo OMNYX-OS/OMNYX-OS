@@ -139,7 +139,7 @@ function ScanPulse({ color }: { color: string }) {
     <View style={{ width: 10, height: 10, alignItems: 'center', justifyContent: 'center' }}>
       <Animated.View style={[{
         position: 'absolute',
-        width: 10, height: 10, borderRadius: 5,
+        width: 10, height: 10, borderRadius: 6,
         backgroundColor: color,
       }, pulseStyle]} />
       <View style={{ width: 7, height: 7, borderRadius: 3.5, backgroundColor: color }} />
@@ -230,7 +230,7 @@ function ScanPanel({ themeId }: { themeId: string }) {
         <View style={{ height: 2, backgroundColor: C.safe }} />
         <View style={{ padding: 16, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
           <View style={{
-            width: 38, height: 38, borderRadius: 12,
+            width: 38, height: 38, borderRadius: 16,
             backgroundColor: `${C.safe}14`,
             alignItems: 'center', justifyContent: 'center',
             borderWidth: 1, borderColor: `${C.safe}28`,
@@ -251,7 +251,7 @@ function ScanPanel({ themeId }: { themeId: string }) {
             activeOpacity={0.7}
             style={{
               flexDirection: 'row', alignItems: 'center', gap: 5,
-              paddingHorizontal: 12, paddingVertical: 7, borderRadius: 10,
+              paddingHorizontal: 12, paddingVertical: 7, borderRadius: 16,
               backgroundColor: `${C.primary}12`,
               borderWidth: 1, borderColor: `${C.primary}30`,
             }}
@@ -281,7 +281,7 @@ function ScanPanel({ themeId }: { themeId: string }) {
       <TouchableOpacity onPress={startScan} activeOpacity={0.8} style={{ padding: 20 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14, marginBottom: 12 }}>
           <View style={{
-            width: 48, height: 48, borderRadius: 14,
+            width: 48, height: 48, borderRadius: 16,
             backgroundColor: `${C.primary}18`,
             alignItems: 'center', justifyContent: 'center',
             borderWidth: 1.5, borderColor: `${C.primary}40`,
@@ -297,7 +297,7 @@ function ScanPanel({ themeId }: { themeId: string }) {
             </Text>
           </View>
           <View style={{
-            paddingHorizontal: 12, paddingVertical: 6, borderRadius: 10,
+            paddingHorizontal: 12, paddingVertical: 6, borderRadius: 6,
             backgroundColor: C.primary,
           }}>
             <Text style={{ fontSize: 10, fontWeight: '800', color: '#fff', letterSpacing: 1 }}>
@@ -428,7 +428,7 @@ function AppRiskCard({
         {topPattern ? (
           <View style={{
             alignSelf: 'flex-start',
-            paddingHorizontal: 6, paddingVertical: 2, borderRadius: 5,
+            paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6,
             backgroundColor: `${riskColor}18`,
           }}>
             <Text style={{ fontSize: 8, fontWeight: '700', color: riskColor, letterSpacing: 0.8 }}>
@@ -465,7 +465,7 @@ function AppRiskCard({
                       paddingVertical: 8,
                       minHeight: 36,
                       justifyContent: 'center',
-                      borderRadius: 5,
+                      borderRadius: 6,
                       backgroundColor: isOpen ? `${riskColor}28` : `${C.borderDim}80`,
                       borderWidth: 1,
                       borderColor: isOpen ? `${riskColor}55` : `${C.borderDim}`,
@@ -503,7 +503,7 @@ function AppRiskCard({
           {profile.riskScore}
         </Text>
         <View style={{
-          paddingHorizontal: 7, paddingVertical: 2, borderRadius: 5,
+          paddingHorizontal: 7, paddingVertical: 2, borderRadius: 6,
           backgroundColor: `${riskColor}18`,
         }}>
           <Text style={{ fontSize: 7, fontWeight: '700', color: riskColor, letterSpacing: 1 }}>
@@ -681,7 +681,7 @@ function QuickActions({ themeId }: { themeId: string }) {
               }}
             >
               <View style={{
-                width: 34, height: 34, borderRadius: 10,
+                width: 34, height: 34, borderRadius: 6,
                 backgroundColor: `${action.color}18`,
                 alignItems: 'center', justifyContent: 'center',
               }}>
@@ -816,7 +816,7 @@ function SignalRow({ event, C, index }: { event: import('@/events/types').OmnyxE
         {event.title}
       </Text>
       <View style={{
-        paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4,
+        paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6,
         backgroundColor: `${color}18`,
       }}>
         <Text style={{ fontSize: 7, fontWeight: '700', color, letterSpacing: 0.8 }}>

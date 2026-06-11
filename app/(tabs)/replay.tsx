@@ -228,7 +228,7 @@ export function MemoryNode({
           <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 7 }}>
             <View style={{
               paddingHorizontal: 7, paddingVertical: 3,
-              backgroundColor: `${rc}18`, borderRadius: 5,
+              backgroundColor: `${rc}18`, borderRadius: 6,
               borderWidth: 1, borderColor: `${rc}28`,
             }}>
               <Text style={{ fontSize: 8, fontWeight: '800', color: rc, letterSpacing: 1.2 }}>
@@ -238,7 +238,7 @@ export function MemoryNode({
             <Text style={{ fontSize: 10, color: C.textDim, flex: 1 }}>{ts(event.timestamp, timeFormat)}</Text>
             <View style={{
               flexDirection: 'row', alignItems: 'center', gap: 3,
-              paddingHorizontal: 7, paddingVertical: 3, borderRadius: 5,
+              paddingHorizontal: 7, paddingVertical: 3, borderRadius: 6,
               backgroundColor: `${cc}14`,
             }}>
               <ChangeIcon size={9} color={cc} />
@@ -257,7 +257,7 @@ export function MemoryNode({
 
           {event.agentResponse && (
             <View style={{
-              backgroundColor: `${C.primary}0A`, borderRadius: 8, padding: 9,
+              backgroundColor: `${C.primary}0A`, borderRadius: 6, padding: 9,
               borderWidth: 1, borderColor: `${C.primary}18`,
             }}>
               <Text style={{ fontSize: 8, color: C.primary, letterSpacing: 1.5, fontWeight: '700', marginBottom: 4 }}>

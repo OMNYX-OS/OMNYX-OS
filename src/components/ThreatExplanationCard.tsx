@@ -17,7 +17,7 @@ export function ThreatExplanationCard({ result, C }: ThreatExplanationCardProps)
 
   return (
     <View style={{
-      borderRadius: 14, overflow: 'hidden',
+      borderRadius: 16, overflow: 'hidden',
       borderWidth: 1, borderColor: `${C.primary}22`,
       backgroundColor: `${C.primary}07`,
     }}>
@@ -126,7 +126,7 @@ export function ThreatExplanationCard({ result, C }: ThreatExplanationCardProps)
             {/* Recommended action */}
             <View style={{
               flexDirection: 'row', alignItems: 'flex-start', gap: 8,
-              padding: 10, borderRadius: 8,
+              padding: 10, borderRadius: 6,
               backgroundColor: `${C.safe}0C`,
               borderWidth: 1, borderColor: `${C.safe}22`,
             }}>

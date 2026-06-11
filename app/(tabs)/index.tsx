@@ -372,7 +372,7 @@ function ThemePicker({ visible, currentTheme, onSelect, onClose }: {
               backgroundColor: currentTheme === t.id ? `${t.previewColor}14` : 'transparent',
             }}
           >
-            <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: t.previewColor, marginRight: 12 }} />
+            <View style={{ width: 10, height: 10, borderRadius: 6, backgroundColor: t.previewColor, marginRight: 12 }} />
             <View style={{ flex: 1 }}>
               <Text style={{ fontSize: 12, fontWeight: '700', letterSpacing: 1, color: currentTheme === t.id ? t.previewColor : C.textPrimary }}>
                 {t.label}
@@ -626,7 +626,7 @@ function ScoreRing({ score, themeId }: { score: number; themeId: ThemeId }) {
         <View style={{
           paddingHorizontal: 14,
           paddingVertical: 4,
-          borderRadius: 20,
+          borderRadius: 16,
           marginTop: 4,
           backgroundColor: `${C.primary}1A`,
           borderWidth: 1,
@@ -760,7 +760,7 @@ function PrivacyCoachBar({ C }: { C: any }) {
       <Text style={{ fontSize: 9, color: C.textDim }}>{timeStr}</Text>
       <View style={{
         paddingHorizontal: 6, paddingVertical: 2,
-        borderRadius: 4, backgroundColor: `${C.safe}20`,
+        borderRadius: 6, backgroundColor: `${C.safe}20`,
         borderWidth: 1, borderColor: `${C.safe}40`,
       }}>
         <Text style={{ fontSize: 7, fontWeight: '800', color: C.safe, letterSpacing: 1.5 }}>LIVE</Text>
@@ -866,7 +866,7 @@ function AgentIcon({ agent, index, C }: { agent: any; index: number; C: any }) {
     <View style={{ alignItems: 'center', gap: 5, flex: 1 }}>
       <Animated.View style={pulseStyle}>
         <View style={{
-          width: 46, height: 46, borderRadius: 13,
+          width: 46, height: 46, borderRadius: 16,
           backgroundColor: `${agent.color}12`,
           alignItems: 'center', justifyContent: 'center',
           borderWidth: 1.5,
@@ -949,7 +949,7 @@ function PrivacyModePanel({ themeId }: { themeId: ThemeId }) {
               activeOpacity={0.7}
               style={{
                 flexDirection: 'row', alignItems: 'center', gap: 5,
-                paddingHorizontal: 11, paddingVertical: 8, borderRadius: 10,
+                paddingHorizontal: 11, paddingVertical: 8, borderRadius: 16,
                 backgroundColor: isActive ? `${m.color}20` : C.glass1,
                 borderWidth: 1, borderColor: isActive ? `${m.color}55` : C.borderDim,
               }}
@@ -973,7 +973,7 @@ function PrivacyModePanel({ themeId }: { themeId: ThemeId }) {
       >
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
           <View style={{
-            width: 30, height: 30, borderRadius: 9,
+            width: 30, height: 30, borderRadius: 6,
             backgroundColor: `${activeConfig.color}1E`,
             alignItems: 'center', justifyContent: 'center',
             borderWidth: 1, borderColor: `${activeConfig.color}38`,
@@ -983,7 +983,7 @@ function PrivacyModePanel({ themeId }: { themeId: ThemeId }) {
           <View style={{ flex: 1 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 7 }}>
               <Text style={{ fontSize: 13, fontWeight: '700', color: activeConfig.color }}>{activeConfig.label} Mode</Text>
-              <View style={{ paddingHorizontal: 5, paddingVertical: 2, borderRadius: 4, backgroundColor: `${activeConfig.color}20` }}>
+              <View style={{ paddingHorizontal: 5, paddingVertical: 2, borderRadius: 6, backgroundColor: `${activeConfig.color}20` }}>
                 <Text style={{ fontSize: 7, fontWeight: '700', color: activeConfig.color, letterSpacing: 1 }}>ACTIVE</Text>
               </View>
             </View>
@@ -1082,7 +1082,7 @@ function StandardLayout({
           style={{
             flexDirection: 'row', alignItems: 'center', gap: 6,
             paddingHorizontal: 12, paddingVertical: 7,
-            borderRadius: 20,
+            borderRadius: 16,
             backgroundColor: `${C.primary}12`,
             borderWidth: 1, borderColor: `${C.primary}35`,
           }}
@@ -1177,7 +1177,7 @@ function LuminaLayout({ score, onThemePick }: { score: number; onThemePick: () =
           activeOpacity={0.7}
           style={{
             flexDirection: 'row', alignItems: 'center', gap: 6,
-            paddingHorizontal: 12, paddingVertical: 7, borderRadius: 20,
+            paddingHorizontal: 12, paddingVertical: 7, borderRadius: 16,
             backgroundColor: `${C.primary}10`, borderWidth: 1, borderColor: `${C.primary}28`,
           }}
         >

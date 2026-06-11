@@ -94,7 +94,7 @@ function SignalDock({ state, navigation }: { state: any; navigation: any }) {
             left: 0,
             width: ITEM_W,
             height: 54,
-            borderRadius: 17,
+            borderRadius: 16,
             backgroundColor: `${C.primary}18`,
             borderWidth: 1,
             borderColor: `${C.primary}30`,
@@ -132,7 +132,7 @@ function SignalDock({ state, navigation }: { state: any; navigation: any }) {
                 {isFocused && (
                   <View style={{
                     position: 'absolute',
-                    width: 28, height: 28, borderRadius: 14,
+                    width: 28, height: 28, borderRadius: 16,
                     backgroundColor: `${C.primary}18`,
                     shadowColor: C.primary,
                     shadowOffset: { width: 0, height: 0 },
@@ -181,7 +181,7 @@ function SignalDock({ state, navigation }: { state: any; navigation: any }) {
       {/* Shadow wrapper - must not clip, so shadow isn't cut off */}
       <View
         style={{
-          borderRadius: 28,
+          borderRadius: 16,
           shadowColor: C.primary,
           shadowOffset: { width: 0, height: 0 },
           shadowRadius: GLOW_RADIUS[atmosphereLevel],
@@ -193,7 +193,7 @@ function SignalDock({ state, navigation }: { state: any; navigation: any }) {
         <View
           style={{
             width: DOCK_W,
-            borderRadius: 28,
+            borderRadius: 16,
             overflow: 'hidden',
             borderWidth: 1,
             borderColor: borderColor,

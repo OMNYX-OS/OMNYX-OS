@@ -146,7 +146,7 @@ function ThreatCard({
             style={{
               width: 40,
               height: 40,
-              borderRadius: 12,
+              borderRadius: 16,
               backgroundColor: `${riskColor}14`,
               alignItems: 'center',
               justifyContent: 'center',
@@ -171,7 +171,7 @@ function ThreatCard({
             style={{
               paddingHorizontal: 10,
               paddingVertical: 4,
-              borderRadius: 8,
+              borderRadius: 6,
               backgroundColor: `${riskColor}18`,
             }}
           >
@@ -189,7 +189,7 @@ function ThreatCard({
           <View
             style={{
               backgroundColor: `${C.primary}0A`,
-              borderRadius: 12,
+              borderRadius: 16,
               padding: 12,
               borderWidth: 1,
               borderColor: `${C.primary}20`,
@@ -228,7 +228,7 @@ function ThreatCard({
               alignSelf: 'flex-end',
               paddingHorizontal: 14,
               paddingVertical: 8,
-              borderRadius: 10,
+              borderRadius: 16,
               backgroundColor: `${C.primary}12`,
               borderWidth: 1,
               borderColor: `${C.primary}30`,
@@ -440,7 +440,7 @@ export default function ThreatFeedScreen() {
                 backgroundColor: `${C.threat}12`,
                 paddingHorizontal: 12,
                 paddingVertical: 7,
-                borderRadius: 24,
+                borderRadius: 16,
                 borderWidth: 1,
                 borderColor: `${C.threat}35`,
               }}
@@ -469,7 +469,7 @@ export default function ThreatFeedScreen() {
                   style={{
                     paddingHorizontal: 14,
                     paddingVertical: 7,
-                    borderRadius: 20,
+                    borderRadius: 16,
                     backgroundColor: isActive ? `${f.color}18` : C.glass1,
                     borderWidth: 1,
                     borderColor: isActive ? `${f.color}55` : C.borderDim,
@@ -504,7 +504,7 @@ export default function ThreatFeedScreen() {
             alignSelf: 'flex-end',
             paddingHorizontal: 14,
             paddingVertical: 8,
-            borderRadius: 10,
+            borderRadius: 6,
             backgroundColor: `${C.primary}12`,
             borderWidth: 1,
             borderColor: `${C.primary}30`,
@@ -544,7 +544,7 @@ export default function ThreatFeedScreen() {
                         right: 12,
                         width: 34,
                         height: 34,
-                        borderRadius: 17,
+                        borderRadius: 16,
                         alignItems: 'center',
                         justifyContent: 'center',
                         backgroundColor: C.glass1,

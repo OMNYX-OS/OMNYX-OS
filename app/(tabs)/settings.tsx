@@ -136,7 +136,7 @@ function Row({
         style={{
           width: 34,
           height: 34,
-          borderRadius: 10,
+          borderRadius: 6,
           backgroundColor: destructive ? `${C.threat}14` : `${iconColor}14`,
           alignItems: 'center',
           justifyContent: 'center',
@@ -286,7 +286,7 @@ export default function SettingsScreen() {
               <View style={{
                 width: 52,
                 height: 52,
-                borderRadius: 26,
+                borderRadius: 16,
                 backgroundColor: `${C.primary}18`,
                 alignItems: 'center',
                 justifyContent: 'center',
