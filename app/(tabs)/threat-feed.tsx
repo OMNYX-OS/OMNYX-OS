@@ -440,7 +440,7 @@ export default function ThreatFeedScreen() {
                 backgroundColor: `${C.threat}12`,
                 paddingHorizontal: 12,
                 paddingVertical: 7,
-                borderRadius: 16,
+                borderRadius: 6,
                 borderWidth: 1,
                 borderColor: `${C.threat}35`,
               }}
@@ -469,7 +469,7 @@ export default function ThreatFeedScreen() {
                   style={{
                     paddingHorizontal: 14,
                     paddingVertical: 7,
-                    borderRadius: 16,
+                    borderRadius: 6,
                     backgroundColor: isActive ? `${f.color}18` : C.glass1,
                     borderWidth: 1,
                     borderColor: isActive ? `${f.color}55` : C.borderDim,

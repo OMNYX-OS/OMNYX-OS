@@ -626,7 +626,7 @@ function ScoreRing({ score, themeId }: { score: number; themeId: ThemeId }) {
         <View style={{
           paddingHorizontal: 14,
           paddingVertical: 4,
-          borderRadius: 16,
+          borderRadius: 6,
           marginTop: 4,
           backgroundColor: `${C.primary}1A`,
           borderWidth: 1,

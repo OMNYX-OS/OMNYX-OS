@@ -257,7 +257,7 @@ export function MemoryNode({
 
           {event.agentResponse && (
             <View style={{
-              backgroundColor: `${C.primary}0A`, borderRadius: 6, padding: 9,
+              backgroundColor: `${C.primary}0A`, borderRadius: 16, padding: 9,
               borderWidth: 1, borderColor: `${C.primary}18`,
             }}>
               <Text style={{ fontSize: 8, color: C.primary, letterSpacing: 1.5, fontWeight: '700', marginBottom: 4 }}>

@@ -311,7 +311,7 @@ function AgentCard({ agent, index, themeId }: { agent: AIAgent; index: number; t
           <ConfidenceBar value={agent.confidenceScore} color={agent.color} trackColor={C.glass2} />
         </View>
 
-        <View style={{ backgroundColor: C.glass1, borderRadius: 6, padding: 12, marginBottom: 10 }}>
+        <View style={{ backgroundColor: C.glass1, borderRadius: 16, padding: 12, marginBottom: 10 }}>
           <Text style={{ fontSize: 9, color: C.textDim, letterSpacing: 2, marginBottom: 5, fontWeight: '600' }}>
             CURRENT TASK
           </Text>

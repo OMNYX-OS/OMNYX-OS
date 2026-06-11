@@ -94,7 +94,7 @@ function SignalDock({ state, navigation }: { state: any; navigation: any }) {
             left: 0,
             width: ITEM_W,
             height: 54,
-            borderRadius: 16,
+            borderRadius: 6,
             backgroundColor: `${C.primary}18`,
             borderWidth: 1,
             borderColor: `${C.primary}30`,
@@ -132,7 +132,7 @@ function SignalDock({ state, navigation }: { state: any; navigation: any }) {
                 {isFocused && (
                   <View style={{
                     position: 'absolute',
-                    width: 28, height: 28, borderRadius: 16,
+                    width: 28, height: 28, borderRadius: 6,
                     backgroundColor: `${C.primary}18`,
                     shadowColor: C.primary,
                     shadowOffset: { width: 0, height: 0 },

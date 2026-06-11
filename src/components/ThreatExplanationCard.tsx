@@ -126,7 +126,7 @@ export function ThreatExplanationCard({ result, C }: ThreatExplanationCardProps)
             {/* Recommended action */}
             <View style={{
               flexDirection: 'row', alignItems: 'flex-start', gap: 8,
-              padding: 10, borderRadius: 6,
+              padding: 10, borderRadius: 16,
               backgroundColor: `${C.safe}0C`,
               borderWidth: 1, borderColor: `${C.safe}22`,
             }}>
