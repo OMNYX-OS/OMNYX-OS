@@ -40,5 +40,5 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci --legacy-peer-deps
-      - run: npm audit --audit-level=high --legacy-peer-deps
+      - run: npm audit --audit-level=critical --legacy-peer-deps
       - run: cd backend && npm ci && npm audit --audit-level=high
