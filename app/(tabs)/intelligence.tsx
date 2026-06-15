@@ -153,7 +153,10 @@ function ScanProgressBar({ C }: { C: any }) {
   const widthPct = useSharedValue(0);
 
   useEffect(() => {
-    widthPct.value = withSpring(scanProgress, { damping: 20, stiffness: 50 });
+    widthPct.value = withTiming(scanProgress, { duration: 300 });
+    return () => {
+      cancelAnimation(widthPct);
+    };
   }, [scanProgress]);
 
   const barStyle = useAnimatedStyle(() => ({
