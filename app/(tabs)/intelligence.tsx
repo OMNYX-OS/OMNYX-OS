@@ -39,6 +39,7 @@ import { THEMES } from '@/theme';
 import { useAppStore } from '@store/useAppStore';
 import { usePermissionScan } from '@/hooks/usePermissionScan';
 import type { AppRiskProfile, RiskTier } from '@/types/permissions';
+import RiskLegend from '@/components/RiskLegend';
 
 const { width: SCREEN_W } = Dimensions.get('window');
 
@@ -946,6 +947,7 @@ export default function IntelligenceScreen() {
           <QuickActions themeId={currentTheme} />
           <SystemStatus themeId={currentTheme} />
           <LiveSignalFeed themeId={currentTheme} />
+          <RiskLegend themeId={currentTheme} />
         </ScrollView>
       </SafeAreaView>
     </View>
