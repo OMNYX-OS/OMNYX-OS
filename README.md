@@ -139,7 +139,8 @@ omnyx/
      validators/          Zod input/output schemas
      security/            Prompt sanitization, content filtering
 ```
-
+See full system architecture with diagrams:  
+[View Architecture Docs](docs/architecture.md)
 ### Data Flow
 
 ```
@@ -354,27 +355,6 @@ Read the full policy: [SECURITY.md](SECURITY.md)
 ## License
 
 MIT License. See [LICENSE](LICENSE).
-
----
-
-## Contributors
-
-<a href="https://github.com/OMNYX-OS/OMNYX-OS/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=OMNYX-OS/OMNYX-OS" />
-</a>
-
----
-
-## Contributor of the Month
-
-> Announced monthly in [Discussions](https://github.com/OMNYX-OS/OMNYX-OS/discussions).
-
-| Badge | Meaning |
-|-------|---------|
-| Top Contributor | Most merged PRs in the month |
-| Fast Fixer | Quickest bug resolution |
-| First PR | Opened their first merged pull request |
-| Core Contributor | Consistent, high-quality contributions |
 
 ---
 

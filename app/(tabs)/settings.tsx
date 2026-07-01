@@ -80,7 +80,7 @@ function Section({
         style={{
           marginHorizontal: 20,
           backgroundColor: C.surface1,
-          borderRadius: 18,
+          borderRadius: 16,
           borderWidth: 1,
           borderColor: C.borderDim,
           overflow: 'hidden',
@@ -197,7 +197,7 @@ function ThemeSwitcher({ currentTheme, onSelect, C }: {
       </Text>
       <View style={{
         backgroundColor: C.surface1,
-        borderRadius: 18,
+        borderRadius: 16,
         borderWidth: 1,
         borderColor: C.borderDim,
         overflow: 'hidden',
@@ -241,7 +241,7 @@ function ThemeSwitcher({ currentTheme, onSelect, C }: {
 }
 
 export default function SettingsScreen() {
-  const { privacyScore, privacyMode, currentTheme, setTheme } = useAppStore();
+  const { privacyScore, privacyMode, currentTheme, setTheme, timeFormat, setTimeFormat} = useAppStore();
   const theme = THEMES[currentTheme];
   const C = theme.colors;
 
@@ -398,6 +398,21 @@ export default function SettingsScreen() {
               C={C}
               onPress={() => {}}
             />
+
+            <Row
+            Icon={Palette}
+            label="24 Hour Time"
+            subtitle={
+              timeFormat === '24h'
+              ? 'Displaying time in 24-hour format'
+              : 'Displaying time in 12-hour format'
+            }
+            color={C.primary}
+            value={timeFormat === '24h'}
+            onToggle={(value) => setTimeFormat(value ? '24h' : '12h')}
+            C={C}
+            />
+
             <Row
               Icon={Brain}
               label="AI Model"
