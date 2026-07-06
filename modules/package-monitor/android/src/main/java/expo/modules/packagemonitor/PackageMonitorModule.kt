@@ -12,7 +12,7 @@ import expo.modules.kotlin.modules.ModuleDefinition
  * PackageMonitorModule - watches for app installs and updates.
  *
  * Security notes:
- * - Only listens for ACTION_PACKAGE_ADDED and ACTION_PACKAGE_REPLACED.
+ * - Only listen for ACTION_PACKAGE_ADDED and ACTION_PACKAGE_REPLACED.
  * - Returns only package name, app name, and permission list.
  * - BroadcastReceiver is unregistered on module destroy to prevent leaks.
  */
