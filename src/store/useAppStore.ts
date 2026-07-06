@@ -51,7 +51,6 @@ interface AppState {
   replayEvents: ReplayEvent[];
   addReplayEvent: (event: ReplayEvent) => void;
 
-  // ── Phase 3: Permission scanner state ──────────────────────────────────────
   isScanning: boolean;
   setIsScanning: (scanning: boolean) => void;
   scanProgress: number;
