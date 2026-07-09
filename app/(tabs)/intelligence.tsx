@@ -523,7 +523,6 @@ function RiskAppList({ themeId }: { themeId: string }) {
   const topApps = scanResult
     ? scanResult.profiles.slice(0, 8)
     : [];
-
   if (topApps.length === 0) return null;
 
   return (
