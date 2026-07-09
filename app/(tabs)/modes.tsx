@@ -13,7 +13,12 @@ import {
   Cpu,
   Layers,
 } from 'lucide-react-native';
-import Animated, { FadeInDown } from 'react-native-reanimated';
+import Animated, {
+  FadeInDown,
+  runOnJS,
+} from 'react-native-reanimated';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import * as Haptics from 'expo-haptics';
 import { THEMES, THEME_LIST } from '@/theme';
 import type { ThemeId } from '@/theme';
 import type { PrivacyMode } from '@/types';
@@ -335,6 +340,36 @@ function ThemeSwitcher({
   onSelect: (id: ThemeId) => void;
   C: any;
 }) {
+  const switchTheme = async (direction: 'left' | 'right') => {
+  const currentIndex = THEME_LIST.findIndex(
+    (theme) => theme.id === currentTheme
+  );
+
+  let newIndex;
+
+  if (direction === 'left') {
+    newIndex = (currentIndex + 1) % THEME_LIST.length;
+  } else {
+    newIndex =
+      (currentIndex - 1 + THEME_LIST.length) % THEME_LIST.length;
+  }
+
+  const newTheme = THEME_LIST[newIndex];
+
+  onSelect(newTheme.id);
+
+  await Haptics.selectionAsync();
+};
+
+const panGesture = Gesture.Pan().onEnd((event) => {
+  if (event.translationX < -50) {
+    runOnJS(switchTheme)('left');
+  }
+
+  if (event.translationX > 50) {
+    runOnJS(switchTheme)('right');
+  }
+});
   return (
     <View style={{ marginHorizontal: 20, marginBottom: 24 }}>
       <Text
@@ -348,6 +383,7 @@ function ThemeSwitcher({
       >
         DISPLAY THEME
       </Text>
+      <GestureDetector gesture={panGesture}>
       <View
         style={{
           backgroundColor: C.surface1,
@@ -394,6 +430,7 @@ function ThemeSwitcher({
           </TouchableOpacity>
         ))}
       </View>
+     </GestureDetector>
     </View>
   );
 }
