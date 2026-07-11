@@ -16,7 +16,7 @@ export const THREAT_CATEGORIES = [
   'permission_abuse', 'network', 'behavioral',
 ] as const;
 
-const UNSAFE_PATTERN = /(<|>|```|\$\{)/i;
+const UNSAFE_PATTERN = /(<|>|`|\$\{)/i;
 const clean = (field: string) => (s: string) => {
   if (UNSAFE_PATTERN.test(s)) throw new Error(`Unsafe content in ${field}`);
   return s;
