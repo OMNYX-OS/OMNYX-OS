@@ -1,4 +1,4 @@
-import { View, ScrollView, Text, Dimensions } from 'react-native';
+import { View, ScrollView, Text, Dimensions, RefreshControl, TouchableOpacity, Platform, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, {
@@ -11,7 +11,7 @@ import Animated, {
   cancelAnimation,
 } from 'react-native-reanimated';
 import { TrendingDown, TrendingUp, Minus } from 'lucide-react-native';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Svg, {
   Path,
   Circle,
@@ -286,6 +286,17 @@ export function MemoryNode({
 export default function ReplayScreen() {
   const { replayEvents, currentTheme, timeFormat } = useAppStore();
   const C = THEMES[currentTheme].colors;
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    try {
+      await useAppStore.getState().loadPersistedState();
+    } catch (error) {
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: C.bg }}>
@@ -294,16 +305,52 @@ export default function ReplayScreen() {
         style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 220 }}
       />
       <SafeAreaView style={{ flex: 1 }} edges={['top']}>
-        <View style={{ paddingHorizontal: 20, paddingTop: 10, paddingBottom: 20 }}>
-          <Text style={{ fontSize: 24, fontWeight: '700', color: C.textPrimary, letterSpacing: 2, marginBottom: 4 }}>
-            MEMORY STREAM
-          </Text>
-          <Text style={{ fontSize: 11, color: C.textDim }}>
-            Signal archive · Intercepted events · Score trace
-          </Text>
+        <View style={{
+          paddingHorizontal: 20, paddingTop: 10, paddingBottom: 20,
+          flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start',
+        }}>
+          <View>
+            <Text style={{ fontSize: 24, fontWeight: '700', color: C.textPrimary, letterSpacing: 2, marginBottom: 4 }}>
+              MEMORY STREAM
+            </Text>
+            <Text style={{ fontSize: 11, color: C.textDim }}>
+              Signal archive · Intercepted events · Score trace
+            </Text>
+          </View>
+          <TouchableOpacity
+            onPress={onRefresh}
+            activeOpacity={0.7}
+            style={{
+              paddingVertical: 4,
+              paddingHorizontal: 8,
+            }}
+          >
+            <Text style={{ fontSize: 12, color: C.textDim, fontWeight: '600', letterSpacing: 0.5 }}>
+              {refreshing ? 'Refreshing...' : 'Refresh'}
+            </Text>
+          </TouchableOpacity>
         </View>
 
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 120 }}>
+        <ScrollView
+          style={{ flex: 1 }}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 120 }}
+          refreshControl={
+            Platform.OS !== 'web' ? (
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                tintColor={C.primary}
+                colors={[C.primary]}
+              />
+            ) : undefined
+          }
+        >
+          {Platform.OS === 'web' && refreshing && (
+            <View style={{ alignItems: 'center', paddingVertical: 12 }}>
+              <ActivityIndicator size="small" color={C.primary} />
+            </View>
+          )}
           <WaveformPanel themeId={currentTheme} />
           <Text style={{
             fontSize: 10, letterSpacing: 2.5, color: C.textDim,

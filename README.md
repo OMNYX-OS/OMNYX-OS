@@ -10,7 +10,6 @@
 [![React Native](https://img.shields.io/badge/React%20Native-0.81-61DAFB?style=flat-square&logo=react)](https://reactnative.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square&logo=typescript)](https://typescriptlang.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
-[![GSSoC](https://img.shields.io/badge/GSSoC-2024-orange?style=flat-square)](https://gssoc.girlscript.tech)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](CONTRIBUTING.md)
 
 ---
@@ -29,10 +28,10 @@ Building AI tools, mobile experiences, and open-source products.
 |---|---|
 | **Beginner Friendly** | Scoped issues with step-by-step instructions |
 | **Fast PR Reviews** | Feedback within 48-72 hours |
-| **Open to Contributors** | No gatekeeping — fork and build |
-| **Real Project Experience** | AI, mobile, privacy — production-quality codebase |
+| **Open to Contributors** | No gatekeeping - fork and build |
+| **Real Project Experience** | AI, mobile, privacy - production-quality codebase |
 
-**Start here** — [Good First Issues](https://github.com/OMNYX-OS/OMNYX-OS/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+**Start here** - [Good First Issues](https://github.com/OMNYX-OS/OMNYX-OS/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 
 ---
 
@@ -366,7 +365,7 @@ Built with intention. Designed for privacy. Engineered for the future.
 
 <div align="center">
 
-**OMNYX OS — BUILT FOR PRIVACY. DESIGNED FOR FREEDOM.**
+**OMNYX OS - BUILT FOR PRIVACY. DESIGNED FOR FREEDOM.**
 
 [![Good First Issues](https://img.shields.io/github/issues/OMNYX-OS/OMNYX-OS/good%20first%20issue?style=flat-square&color=00FF88&label=Good%20First%20Issues)](https://github.com/OMNYX-OS/OMNYX-OS/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 [![Contributors](https://img.shields.io/github/contributors/OMNYX-OS/OMNYX-OS?style=flat-square&color=7C3AED)](https://github.com/OMNYX-OS/OMNYX-OS/graphs/contributors)
