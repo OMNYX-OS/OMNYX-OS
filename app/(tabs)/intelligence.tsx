@@ -1045,7 +1045,7 @@ export default function IntelligenceScreen() {
         >
           <ScanPanel themeId={currentTheme} />
           {scanResult && <ScanSummary themeId={currentTheme} />}
-          {scanResult && <RiskAppList themeId={currentTheme} />}
+          <RiskAppList themeId={currentTheme} />
           <PrivacyChart themeId={currentTheme} />
           <QuickActions themeId={currentTheme} />
           <SystemStatus themeId={currentTheme} />
