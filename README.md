@@ -241,6 +241,8 @@ npm run dev
 # Backend runs on http://localhost:3001
 ```
 
+> **Verification:** Open `http://localhost:3001` (or the configured backend port) and confirm the server is reachable before launching the mobile application. If the backend is unavailable, the app will automatically fall back to mock intelligence reports.
+
 Without the backend running, OMNYX uses built-in mock intelligence reports so the full UI is demonstrable without any API keys.
 
 ---
