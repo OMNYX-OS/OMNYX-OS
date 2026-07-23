@@ -163,7 +163,7 @@ function SwarmField({ agents, themeId }: { agents: AIAgent[]; themeId: string })
       <View style={{
         width: SWARM_W, height: SWARM_H,
         backgroundColor: C.surface1,
-        borderRadius: 20, borderWidth: 1,
+        borderRadius: 16, borderWidth: 1,
         borderColor: C.borderDim, overflow: 'hidden',
       }}>
         {/* Central glow */}
@@ -228,11 +228,11 @@ function StatusPulse({ status, statusColor }: { status: AgentStatus; statusColor
       {isLive && (
         <Animated.View style={[{
           position: 'absolute', width: 10, height: 10,
-          borderRadius: 5, backgroundColor: statusColor,
+          borderRadius: 6, backgroundColor: statusColor,
         }, ringStyle]} />
       )}
       <View style={{
-        width: 10, height: 10, borderRadius: 5, backgroundColor: statusColor,
+        width: 10, height: 10, borderRadius: 6, backgroundColor: statusColor,
         shadowColor: statusColor, shadowOffset: { width: 0, height: 0 },
         shadowRadius: 6, shadowOpacity: 0.9, elevation: 6,
       }} />
@@ -283,7 +283,7 @@ function AgentCard({ agent, index, themeId }: { agent: AIAgent; index: number; t
       <View style={{ padding: 18 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
           <View style={{
-            width: 48, height: 48, borderRadius: 14,
+            width: 48, height: 48, borderRadius: 6,
             backgroundColor: `${agent.color}14`, alignItems: 'center', justifyContent: 'center',
             marginRight: 14, borderWidth: 1, borderColor: `${agent.color}28`,
           }}>
@@ -311,7 +311,7 @@ function AgentCard({ agent, index, themeId }: { agent: AIAgent; index: number; t
           <ConfidenceBar value={agent.confidenceScore} color={agent.color} trackColor={C.glass2} />
         </View>
 
-        <View style={{ backgroundColor: C.glass1, borderRadius: 12, padding: 12, marginBottom: 10 }}>
+        <View style={{ backgroundColor: C.glass1, borderRadius: 16, padding: 12, marginBottom: 10 }}>
           <Text style={{ fontSize: 9, color: C.textDim, letterSpacing: 2, marginBottom: 5, fontWeight: '600' }}>
             CURRENT TASK
           </Text>

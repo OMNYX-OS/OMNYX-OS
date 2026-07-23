@@ -106,7 +106,7 @@ function ActiveModeBanner({
         marginBottom: 24,
         padding: 20,
         backgroundColor: `${mode.color}0D`,
-        borderRadius: 20,
+        borderRadius: 16,
         borderWidth: 1.5,
         borderColor: `${mode.color}3A`,
       }}
@@ -116,7 +116,7 @@ function ActiveModeBanner({
           style={{
             width: 44,
             height: 44,
-            borderRadius: 22,
+            borderRadius:16,
             backgroundColor: `${mode.color}18`,
             alignItems: 'center',
             justifyContent: 'center',
@@ -147,7 +147,7 @@ function ActiveModeBanner({
             paddingHorizontal: 10,
             paddingVertical: 5,
             backgroundColor: `${mode.color}18`,
-            borderRadius: 8,
+            borderRadius: 6,
             borderWidth: 1,
             borderColor: `${mode.color}30`,
           }}
@@ -239,7 +239,7 @@ function ModeCard({
             style={{
               width: 36,
               height: 36,
-              borderRadius: 12,
+              borderRadius: 16,
               backgroundColor: `${mode.color}16`,
               alignItems: 'center',
               justifyContent: 'center',
@@ -283,7 +283,7 @@ function ThemeThumbnail({ id, isActive }: { id: ThemeId; isActive: boolean }) {
       style={{
         width: 54,
         height: 40,
-        borderRadius: 10,
+        borderRadius: 6,
         overflow: 'hidden',
         marginRight: 14,
         borderWidth: 1.5,
@@ -531,7 +531,7 @@ export default function ModesScreen() {
             style={{
               width: 36,
               height: 36,
-              borderRadius: 12,
+              borderRadius: 16,
               backgroundColor: C.glass1,
               borderWidth: 1,
               borderColor: C.borderDim,
