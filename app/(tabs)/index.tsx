@@ -1181,7 +1181,7 @@ function LuminaLayout({ score, onThemePick }: { score: number; onThemePick: () =
             backgroundColor: `${C.primary}10`, borderWidth: 1, borderColor: `${C.primary}28`,
           }}
         >
-          <View style={{ width: 5, height: 5, borderRadius: 2.5, backgroundColor: C.primary }} />
+          <View style={{ width: 5, height: 5,  2.5, backgroundColor: C.primary }} />
           <Text style={{ fontSize: 10, color: C.primary, fontWeight: '700', letterSpacing: 1.2 }}>LUMINA</Text>
           <ChevronDown size={11} color={C.primary} strokeWidth={2.5} />
         </TouchableOpacity>

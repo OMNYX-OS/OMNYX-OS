@@ -146,7 +146,7 @@ function ThreatCard({
             style={{
               width: 40,
               height: 40,
-              borderRadius: 12,
+              borderRadius: 16,
               backgroundColor: `${riskColor}14`,
               alignItems: 'center',
               justifyContent: 'center',
@@ -189,7 +189,7 @@ function ThreatCard({
           <View
             style={{
               backgroundColor: `${C.primary}0A`,
-              borderRadius: 12,
+              borderRadius: 16,
               padding: 12,
               borderWidth: 1,
               borderColor: `${C.primary}20`,
